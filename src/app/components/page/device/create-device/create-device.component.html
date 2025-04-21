@@ -1,0 +1,212 @@
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0">Thêm mới thiết bị</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li routerLink="/admin/dashboard" class="breadcrumb-item d-flex align-items-center">
+                        <span>Trang chủ</span>
+                        <i class="breadcrumb-item-arrow fa-solid fa-angle-right"></i>
+                    </li>
+                    <li routerLink="/admin/student" class="breadcrumb-item d-flex align-items-center">
+                        <span>Quản lý thiết bị</span>
+                        <i class="breadcrumb-item-arrow fa-solid fa-angle-right"></i>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <span>Thêm mới thiết bị</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row row-custom">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-body">
+                <form (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-3 col-form-label" for="device-category-id">Chọn loại thiết
+                                bị<span class="text-danger">*</span></label>
+                            <div class="col-md-9 col-lg-9 col-table-responsive p-0">
+                                <select class="form-control" id="device-category-id" name="deviceCategoryId" ngModel>
+                                    <option value="" disabled selected>Chọn loại thiết bị</option>
+                                    <option *ngFor="let category of categories" [value]="category.id">{{ category.name
+                                        }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-3 col-form-label" for="serial-number">Số định danh<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9 col-lg-9 col-table-responsive p-0">
+                                <input class="form-control" id="serial-number" type="text" name="serialNumber" ngModel>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-3 col-form-label" for="name">Tên thiết bị<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-9 col-lg-9 col-table-responsive p-0">
+                                <input class="form-control" id="name" type="text" name="name" ngModel>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-3 col-form-label" for="description">Mô tả</label>
+                            <div class="col-md-9 col-lg-9 col-table-responsive p-0">
+                                <textarea class="form-control" id="description" name="description" ngModel
+                                    rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-3 col-form-label" for="room-id">Room ID</label>
+                            <div class="col-md-9 col-lg-6 col-table-responsive p-0">
+                                <input [(ngModel)]="selectedRoomName" class="form-control" id="room-id" type="number" name="roomId">
+                                <button class="btn btn-primary" (click)="openModal()">Open Room Selector</button>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-3 col-form-label" for="room-id">Phòng chứa</label>
+                            <div class="col-md-9 col-lg-9 col-table-responsive p-0">
+                                <div class="row">
+                                    <div class="col-md-10 col-lg-10">
+                                        <input [(ngModel)]="selectedRoomName" class="form-control" id="room-id"
+                                            type="number" name="roomId">
+                                    </div>
+                                    <div class="col-md-2 col-lg-2">
+                                        <button class="btn btn-primary" (click)="openModal()">Chọn phòng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-3 col-form-label" for="purchase-date">Ngày mua</label>
+                            <div class="col-md-9 col-lg-6 col-table-responsive p-0">
+                                <input class="form-control" id="purchase-date" type="date" name="purchaseDate" ngModel>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 col-lg-3 col-form-label" for="warranty-expiry-date">Ngày hết bảo hành
+                                Date</label>
+                            <div class="col-md-9 col-lg-6 col-table-responsive p-0">
+                                <input class="form-control" id="warranty-expiry-date" type="date"
+                                    name="warrantyExpiryDate" ngModel>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group mt-100">
+                    <div class="d-flex">
+                        <div class="ml-auto">
+                            <!-- Chọn ảnh với icon -->
+                            <div class="form-group">
+                                <label for="imageUpload" class="custom-file-upload">
+                                    <i class="fa fa-image"></i> 
+                                </label>
+                                <input type="file" id="imageUpload" (change)="onImageSelect($event)" class="form-control-file">
+                            </div>
+    
+                            <!-- Hiển thị ảnh preview -->
+                            <div *ngIf="imagePreview" class="image-preview-container">
+                                <img [src]="imagePreview" alt="Image Preview" class="img-fluid mb-3" />
+                            </div>
+    
+                            <!-- Nút bấm -->
+                            <div class="d-flex mt-3">
+                                <div class="ml-auto">
+                                    <button routerLink="/page/device/list" type="button" class="btn btn-secondary waves-effect waves-light">Quay lại</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light ml-2">Xác nhận</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+
+<!-- puppop -->
+<ng-template #roomSelectorTemplate>
+    <div class="modal-header">
+        <h5 class="modal-title">Chọn phòng chứa trang thiết bị</h5>
+        <button type="button" class="close" (click)="modalRef.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Room name" [(ngModel)]="searchParams.name">
+                </div>
+                <div class="col">
+                    <select class="form-control" [(ngModel)]="searchParams.buildingId">
+                        <option value="">Tìm theo tòa nhà</option>
+                        <option *ngFor="let building of buildings" [value]="building.id">{{ building.name }}</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <select class="form-control" [(ngModel)]="searchParams.floorId">
+                        <option value="">Tìm theo tầng</option>
+                        <option *ngFor="let floor of floors" [value]="floor.id">{{ floor.name }}</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-primary" (click)="loadRooms()">Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+        <div class="room-grid">
+            <div *ngFor="let room of rooms" class="room-item" (click)="selectRoom(room)">
+                <div class="card-room">
+                    <img src="{{ room.image }}" class="card-img-top" alt="Room Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ room.name }}</h5>
+                        <p class="card-text">{{ room.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="room-grid-container">
+            <div *ngFor="let room of rooms" class="room-grid-item" (click)="selectRoom(room)">
+                <div class="card">
+                    <img [src]="room.image" class="card-img-top" alt="Room Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ room.name }}</h5>
+                        <p class="card-text">{{ room.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Đóng</button>
+    </div>
+</ng-template>
+
+<!-- <input type="text" class="form-control mt-2" placeholder="Selected Room" [(ngModel)]="selectedRoomName"> -->

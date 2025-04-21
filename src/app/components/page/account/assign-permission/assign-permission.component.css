@@ -1,0 +1,21 @@
+.card-custom {
+    background: #fff;
+    margin-bottom: 2rem;
+    border: none;
+    box-shadow: var(--card-shadow);
+    border-radius: 4px;
+    padding: 1rem;
+}
+.cutsom-cancel {
+    background-color: #64748b;
+    border-color: #64748b;
+}
+/* tny add */
+.status-span {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+}

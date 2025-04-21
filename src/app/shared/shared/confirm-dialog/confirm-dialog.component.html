@@ -1,0 +1,7 @@
+<p-dialog header="Xác nhận hành động" [(visible)]="display" [modal]="true" [closable]="false" [resizable]="false">
+    <p>{{ message }}</p>
+    <p-footer>
+        <button type="button" pButton label="Xác nhận" (click)="confirmAction()" class="ui-button-success me-3"></button>
+        <button type="button" pButton label="Hủy" (click)="cancelAction()" class="ui-button-secondary cutsom-cancel"></button>
+    </p-footer>
+</p-dialog>

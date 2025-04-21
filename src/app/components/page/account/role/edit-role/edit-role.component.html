@@ -1,0 +1,86 @@
+<div class="row p-3 pb-0 pt-0">
+    <p-toolbar styleClass="mb-2">
+        <div class="">
+            <strong class="font-size-16">Thêm mới vai trò/Nhóm quyền</strong>
+            <p-breadcrumb [model]="breadcrumbs" [home]="{ icon: 'pi pi-home' }"></p-breadcrumb>
+        </div>
+    </p-toolbar>
+</div>
+
+<div class=" mb-2 card-custom">
+    <div class="general__info">
+        <h5 class="title__heading">THÔNG TIN CHUNG</h5>
+        <form [formGroup]="roleForm" (submit)="onSubmit()" class="grid p-fluid p-3">
+            <div class="col-12 md:col-6 p-0">
+                <div class="field mb-0 flex ">
+                    <div class="col-12 mb-2 md:col-3 md:mb-0">
+                        <label style="font-weight: 600; color: #000" htmlFor="name">Tên nhóm quyền/Vai trò<span
+                                class="red-asterisk">*</span></label>
+                    </div>
+                    <div class="col-12 mb-2 md:col-9 md:mb-0">
+                        <input formControlName="name" pInputText placeholder="Nhập tên nhóm quyền" id="name" type="text"
+                            spellcheck="false" />
+                        <app-validation-message [form]="roleForm" [messages]="validationMessages"
+                            field="name"></app-validation-message>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 p-0">
+                <div class="field mb-0 flex ">
+                    <div class="col-12 mb-2 md:col-2 md:mb-0">
+                        <label style="font-weight: 600; color: #000" htmlFor="phoneNumber">Mô tả nhóm quyền</label>
+                    </div>
+                    <div class="col-12 mb-2 md:col-10 md:mb-0">
+                        <textarea formControlName="description" placeholder="Nhập mô tả" rows="5" cols="30" pInputTextarea></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- <div class="identity-info">
+        <h5 class="title__heading">PHÂN QUYỀN</h5>
+        <div class="grid p-fluid p-3">
+            <div class="permission-container">
+                <div class="section" *ngFor="let sectionL of sectionLabel.data">
+                    <h3 class="section-label">{{ sectionL.label }}</h3>
+                    <div class="permission-item" *ngFor="let permission of permissions">
+                        <span *ngIf="sectionL.key == permission.section" class="permission-group">
+                            <label *ngIf="permission.parentPermissionId == null" class="label-per check-box-custom">{{
+                                permission.displayName }}</label>
+                            <p-checkbox class="check-box-custom mb-check" *ngIf="permission.parentPermissionId == null"
+                                [(ngModel)]="permission.selected" (ngModelChange)="onPermissionChange(permission)"
+                                binary="true"></p-checkbox>
+                            <div class="child-permissions" *ngIf="permission.childrens?.length">
+                                <p-checkbox class="check-box-custom" *ngFor="let child of permission.childrens"
+                                    label="{{ child.displayName }}" [(ngModel)]="child.selected"
+                                    (ngModelChange)="onPermissionChange(child)" binary="true"></p-checkbox>
+                            </div>
+                            <div class="selected-permissions flex" *ngIf="getSelectedChildren(permission).length > 0">
+                                <span class="selected-per-view"
+                                    *ngFor="let selected of getSelectedChildren(permission)">
+                                    {{ selected.displayName }}
+                                </span>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="flex danger-notice" *ngIf="selectedPermissions.length <= 0">
+        <span class="ml-auto">
+            Vui lòng chọn quyền cho nhóm quyền
+        </span>
+    </div>
+</div>
+<div class="flex button-container card-custom justify-content-end">
+    <button routerLink="/decentralization/role" pButton class="button" type="button"
+        style="margin-right: 10px; color: white; background-color: gray; border-color: gray; justify-content:center">Hủy</button>
+    <button pButton class="button" type="submit" (click)="onSubmit()"
+        style="color: white; background-color: rgb(21, 21, 94); justify-content:center">Lưu</button>
+</div>
+
+
+
+
+

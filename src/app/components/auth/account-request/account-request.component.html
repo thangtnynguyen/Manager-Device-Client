@@ -1,0 +1,57 @@
+<div class="row no-gutters">
+    <div class="col-md-4 p-3 d-flex align-items-center justify-content-center">
+        <img src="assets/images/school/logo.png" width="500px" alt="logo">
+    </div>
+
+    <div class="col-md-8 p-3">
+        <div class="card shadow-sm mt-5">
+            <div class="card-body">
+                <label for="searchDevice" >Yêu Cầu Cấp Tài Khoản</label>
+                <form (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="studentId">Mã Sinh Viên</label>
+                        <input type="text" class="form-control" id="studentId" placeholder="Nhập mã sinh viên"
+                            [(ngModel)]="request.studentId" name="studentId" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Nhập email"
+                            [(ngModel)]="request.email" name="email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Số Điện Thoại</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="Nhập số điện thoại"
+                            [(ngModel)]="request.phone" name="phone" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="classCode">Mã Lớp</label>
+                        <input type="text" class="form-control" id="classCode" placeholder="Nhập mã lớp"
+                            [(ngModel)]="request.classCode" name="classCode" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Chức Vụ Hiện Tại</label>
+                        <input type="text" class="form-control" id="position" placeholder="Nhập chức vụ hiện tại"
+                            [(ngModel)]="request.position" name="position" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Lý Do</label>
+                        <textarea class="form-control" id="reason" rows="4"
+                            placeholder="Nhập lý do yêu cầu cấp tài khoản" [(ngModel)]="request.reason" name="reason"
+                            required></textarea>
+                    </div>
+                    <div class="form-group text-end">
+                        <button type="submit" class="btn btn-primary">Gửi Yêu Cầu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-5 text-center">
+    <p>Đã có tài khoản ? <a routerLink="/auth/login" class="fw-medium text-primary"> Đăng nhập </a>
+    </p>
+    <p>©
+        <script>document.write(new Date().getFullYear())</script> UTEHY. Crafted
+        with <i class="mdi mdi-heart text-danger"></i> by UTEHY
+    </p>
+</div>

@@ -1,0 +1,82 @@
+<div class="bg-white">
+    <div class="container-fluid p-0">
+        <div class="row no-gutters">
+            <div class="col-lg-4">
+                <div class="authentication-page-content p-4 d-flex align-items-center min-vh-100">
+                    <div class="w-100">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-9">
+                                <div>
+                                    <div class="text-center">
+                                        <div>
+                                            <a class="logo"><img src="assets/images/school/logo.png" height="100"
+                                                    alt="logo"></a>
+                                        </div>
+
+                                        <h4 class="font-size-18 mt-4">Chào mừng bạn đến với khoa CNTT trường đại học
+                                            SPKTHY</h4>
+                                        <p class="text-muted">Hệ thống quản lý thiết bị khoa CNTT.</p>
+                                    </div>
+                                    <div class="p-2 mt-5">
+                                        <form [formGroup]="loginForm" (submit)="handleLogin()">
+
+                                            <div class="mb-3 auth-form-group-custom mb-4">
+                                                <i class="ri-user-2-line auti-custom-input-icon"></i>
+                                                <label for="username">Mã đăng nhập</label>
+                                                <input type="text" class="form-control" id="username"
+                                                    placeholder="Enter username">
+                                                <app-validation-message [form]="loginForm"
+                                                    [messages]="validationMessages"
+                                                    field="username"></app-validation-message>
+
+                                            </div>
+
+                                            <div class="mb-3 auth-form-group-custom mb-4">
+                                                <i class="ri-lock-2-line auti-custom-input-icon"></i>
+                                                <label for="userpassword">Mật khẩu</label>
+                                                <input type="password" class="form-control" id="userpassword"
+                                                    placeholder="Enter password">
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input"
+                                                    id="customControlInline">
+                                                <label class="form-check-label" for="customControlInline">Remember
+                                                    me</label>
+                                            </div>
+
+                                            <div class="mt-4 text-center">
+                                                <button class="btn btn-primary w-md waves-effect waves-light"
+                                                    type="submit">Đăng nhập</button>
+                                            </div>
+
+                                            <div class="mt-4 text-center">
+                                                <a class="text-muted"><i class="mdi mdi-lock me-1"></i> Quên mật
+                                                    khẩu?</a>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="mt-5 text-center">
+                                        <p>Chưa có tài khoản ? <a  routerLink="/auth/account/request" class="fw-medium text-primary"> Gửi form đăng kí </a> </p>
+                                        <p>©
+                                            <script>document.write(new Date().getFullYear())</script> UTEHY. Crafted
+                                            with <i class="mdi mdi-heart text-danger"></i> by UTEHY
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 d-none d-md-block">
+                <div class="authentication-bg d-flex">
+                    <div class="d-flex align-items-center">
+                        <img src="assets/images/background.jpg" class="fluid-img w-100 h-100" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

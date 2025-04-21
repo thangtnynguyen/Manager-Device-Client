@@ -1,0 +1,167 @@
+.card-custom {
+    background: #fff;
+    margin-bottom: 2rem;
+    border: none;
+    box-shadow: var(--card-shadow);
+    border-radius: 4px;
+    padding: 1rem;
+}
+.text-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.title__heading {
+    font-size: 1.3rem;
+    padding: 0 13px;
+    margin-bottom: 15px;
+    margin-top: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+
+.role_box {
+    padding: 0 13px;
+}
+.title_role {
+    font-size: 1.2rem;
+}
+
+.permission-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.permission-group {
+    padding: 10px 0;
+}
+
+.permission-item {
+    display: flex;
+}
+
+.permission-item label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    min-width: 250px;
+    color: #4b5563;
+}
+
+p-dropdown {
+    width: 100%;
+}
+
+p-checkbox {
+    margin-right: 10px;
+}
+.section-label {
+    font-weight: 600;
+}
+.identity-info {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.title__heading {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section-label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.permission-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.child-permissions {
+    margin-left: 20px;
+    padding: 0;
+}
+
+.selected-permissions {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.selected-label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+ul li {
+    list-style-type: disc;
+}
+
+.selected-permissions {
+    margin-top: 10px;
+}
+
+.selected-label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #333;
+}
+
+.selected-permissions span {
+    display: inline-block;
+    background-color: #f5f7fa;
+    color: #4a5568;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease-in-out;
+}
+
+.selected-permissions span:hover {
+    background-color: #edf2f7;
+    color: #2d3748;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.check-box-custom {
+    margin-top: 10px;
+}
+.mb-check {
+    margin-bottom: -1.5px;
+}
+.selected-per-view {
+    min-width: 100px;
+}

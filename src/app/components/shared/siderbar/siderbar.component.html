@@ -1,0 +1,194 @@
+<!--  bg-dark-ui -->
+<div class="vertical-menu">
+    <div id="simplebar" data-simplebar class="h-100">
+        <div id="sidebar-menu">
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <li class="menu-title">Menu</li>
+
+                <li routerLink="/page/dashboard">
+                    <a class="waves-effect {{ currentUrl === '/page/dashboard' ? 'active' : '' }}">
+                        <i class="fa-solid fa-house pb-0"></i>
+                        <span>Trang điều khiển</span>
+                    </a>
+                </li>
+                <li routerLink="/page/menu">
+                    <a class="waves-effect {{ currentUrl === '/page/menu' ? 'active' : '' }}">
+                        <i class="fa-solid fa-bars pb-0"></i>
+                        <span>Menu</span>
+                    </a>
+                </li>
+                <li class="{{ isActive('/page/device')  ? 'mm-active' : '' }}">
+                    <a
+                        class="waves-effect navigation-menu-main d-flex justify-content-between {{ isActive('/page/device') ? 'active' : '' }}">
+                        <div class="navigation-label">
+                            <i class="fa-solid fa-laptop pb-0"></i>
+                            <span>Thiết bị</span>
+                        </div>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+                    <ul class="sub-menu {{ isActive('/page/device')? 'mm-show' : '' }}">
+                        <li class="cursor-pointer" routerLink="/page/device/list"><a
+                                class="{{ isActive('/page/device/list') ? 'active' : '' }}">Danh sách thiết bị</a></li>
+                        <li class="cursor-pointer" routerLink="/page/device/create"><a
+                                class="{{ isActive('/page/device/create')? 'active' : '' }}">Thêm thiết bị</a></li>
+                    </ul>
+                </li>
+
+                <li class="{{ isActive('/page/category')  ? 'mm-active' : '' }}">
+                    <a
+                        class="waves-effect navigation-menu-main d-flex justify-content-between {{ isActive('/page/category') ? 'active' : '' }}">
+                        <div class="navigation-label">
+                            <i class="fa-solid fa-layer-group pb-0"></i>
+                            <span>Danh mục thiết bị</span>
+                        </div>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+                    <ul class="sub-menu {{ isActive('/page/category') ? 'mm-show' : '' }}">
+                        <li class="cursor-pointer" routerLink="/page/category/list">
+                            <a class="{{ isActive('/page/category/list') ? 'active' : '' }}">Danh sách danh mục thiết
+                                bị</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="{{ isActive('/page/building')  ? 'mm-active' : '' }}">
+                    <a
+                        class="waves-effect navigation-menu-main d-flex justify-content-between {{ isActive('/page/building') ? 'active' : '' }}">
+                        <div class="navigation-label">
+                            <i class="fa-solid fa-layer-group pb-0"></i>
+                            <span>Quản lý phòng học</span>
+                        </div>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+                    <ul class="sub-menu {{ isActive('/page/building') ? 'mm-show' : '' }}">
+                        <li class="cursor-pointer" routerLink="/page/building/select">
+                            <a class="{{ isActive('/page/building/select') ? 'active' : '' }}">Danh sách phòng học</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="{{ isActive('/page/borrow')  ? 'mm-active' : '' }}">
+                    <a
+                        class="waves-effect navigation-menu-main d-flex justify-content-between {{ isActive('/admin/exam') ? 'active' : '' }}">
+                        <div class="navigation-label">
+                            <i class="fa-solid fa-hand pb-0"></i>
+                            <span>Yêu cầu mượn thiết bị</span>
+                        </div>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+
+                    <ul class="sub-menu {{ isActive('/page/borrow') ? 'mm-show' : '' }}">
+                        <li class="cursor-pointer" [routerLink]="['/page/borrow/list']"><a
+                                class="{{ isActive('/page/borrow/list') ? 'active' : '' }}">Danh sách yêu cầu</a></li>
+                        <li class="cursor-pointer" [routerLink]="['/page/borrow/approve']"><a
+                                class="{{ isActive('/page/borrow/approve') ? 'active' : '' }}">Duyệt yêu cầu</a></li>
+                        <li class="cursor-pointer" [routerLink]="['/page/borrow/create']"><a
+                                class="{{ isActive('/page/borrow/create') ? 'active' : '' }}">Tạo yêu cầu mượn</a></li>
+                    </ul>
+                </li>
+                <li routerLink="/page/trace">
+                    <a class="waves-effect" [class.active]="isActive('/page/trace')">
+                        <i class="ri-dashboard-line"></i>
+                        <span>Truy vết thiết bị</span>
+                    </a>
+                </li>
+                <li
+                    class="{{ isActive('/page/account') || isActive('/page/accounts/teacher') || isActive('/page/account/student')  ? 'mm-active' : '' }}">
+                    <a
+                        class="waves-effect navigation-menu-main d-flex justify-content-between {{ isActive('/page/account') || isActive('/page/account/teacher') || isActive('/page/account/student') ? 'active' : '' }}">
+                        <div class="navigation-label">
+                            <i class="fa-solid fa-graduation-cap pb-0"></i>
+                            <span>Người dùng</span>
+                        </div>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+
+                    <ul
+                        class="sub-menu {{ isActive('/page/account') || isActive('/page/account/role') || isActive('/page/account/permission') || isActive('/page/account/account-request') || isActive('/page/account/account') ? 'mm-show' : '' }}">
+                        <li class="cursor-pointer" routerLink="/page/account/account-request"><a
+                            class="{{ isActive('/page/account/account-request') ? 'active' : '' }}">Danh sách yêu cầu cấp tài khoản</a></li>
+                        <li class="cursor-pointer" routerLink="/page/account/assign-role"><a
+                                class="{{ isActive('/page/account/assign-role') ? 'active' : '' }}">Quản lý tài khoản</a></li>
+                        <li class="cursor-pointer" routerLink="/page/account/permission"><a
+                                class="{{ isActive('/page/account/permission') ? 'active' : '' }}">Quản lý quyền</a></li>
+                        <li class="cursor-pointer" routerLink="/page/account/role"><a
+                                class="{{ isActive('/page/account/role') ? 'active' : '' }}">Quản lý vai trò </a></li>
+
+                    </ul>
+                </li>
+
+                <li class="{{ isActive('/admin/banner')  ? 'mm-active' : '' }}">
+                    <a
+                        class="waves-effect navigation-menu-main d-flex justify-content-between {{ isActive('/admin/banner') ? 'active' : '' }}">
+                        <div class="navigation-label">
+                            <i class="fa-brands fa-slideshare"></i>
+                            <span>Nội dung</span>
+                        </div>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+
+                    <ul class="sub-menu {{ isActive('/admin/banner')? 'mm-show' : '' }}">
+                        <li class="cursor-pointer" routerLink="/admin/banner"><a
+                                class="{{ isActive('/admin/banner') ? 'active' : '' }}">Quản lý banner</a></li>
+                    </ul>
+                </li>
+
+                <li class="{{ isActive('/admin/config/web')  ? 'mm-active' : '' }}">
+                    <a
+                        class="waves-effect navigation-menu-main d-flex justify-content-between {{ isActive('/admin/config/web')? 'active' : '' }}">
+                        <div class="navigation-label">
+                            <i class="fa-solid fa-gears"></i>
+                            <span>Cấu hình</span>
+                        </div>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+
+                    <ul class="sub-menu {{ isActive('/admin/config/web')? 'mm-show' : '' }}">
+                        <li class="cursor-pointer" routerLink="/admin/config/web"><a
+                                class="{{ isActive('/admin/config/web') ? 'active' : '' }}">Cấu hình trang web</a></li>
+                        <li class="cursor-pointer" routerLink="/admin/config/system"><a
+                                class="{{ false ? 'active' : '' }}">Cấu hình hệ thống</a></li>
+                    </ul>
+                </li>
+
+                <li class="{{ isActive('/page/profile')  ? 'mm-active' : '' }}">
+                    <a
+                        class="waves-effect navigation-menu-main d-flex justify-content-between {{ isActive('/page/profile') ? 'active' : '' }}">
+                        <div class="navigation-label">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Cá nhân</span>
+                        </div>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+
+                    <ul class="sub-menu {{ isActive('/page/profile/detail') ? 'mm-show' : '' }}">
+                        <li class="cursor-pointer" routerLink="/page/profile/detail"><a
+                                class="{{ isActive('/page/profile') ? 'active' : '' }}">Thông tin cá nhân</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- <li routerLink="/admin/teacher">
+                    <a class="waves-effect" [class.active]="isActive('/admin/teacher')">
+                        <i class="ri-dashboard-line"></i>
+                        <span>Quản lý giáo viên</span>
+                    </a>
+                </li>
+                <li routerLink="/admin/student">
+                    <a class="waves-effect" [class.active]="isActive('/admin/student')">
+                        <i class="ri-dashboard-line"></i>
+                        <span>Quản lý sinh viên</span>
+                    </a>
+                </li> -->
+                <!-- <li routerLink="/admin/post">
+                    <a class="waves-effect" [class.active]="isActive('/admin/post')">
+                        <i class="ri-dashboard-line"></i>
+                        <span>Quản lý bài viết</span>
+                    </a>
+                </li> -->
+                <!-- them -->
+
+                <!--  -->
+            </ul>
+        </div>
+    </div>
+</div>

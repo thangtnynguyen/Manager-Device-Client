@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0">Truy vết thiết bị</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li routerLink="/admin/dashboard" class="breadcrumb-item d-flex align-items-center">
+                        <span>Trang chủ</span>
+                        <i class="breadcrumb-item-arrow fa-solid fa-angle-right"></i>
+                    </li>
+                    <li routerLink="/admin/student" class="breadcrumb-item d-flex align-items-center">
+                        <span>Quản lý thiết bị</span>
+                        <i class="breadcrumb-item-arrow fa-solid fa-angle-right"></i>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <span>Truy vết thiết bị</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row card-background">
+	<div class="col-md-6">
+		<div class="device-selection">
+			<label for="deviceSearch">Tìm kiếm thiết bị</label>
+			<input type="text" class="form-control" id="deviceSearch" [(ngModel)]="searchText" (input)="filterDevices()"
+				placeholder="Tìm thiết bị..." />
+			<div class="grid-container">
+				<div *ngFor="let device of filteredDevices" class="grid-item" (click)="selectDevice(device)">
+					<div class="card">
+						<img [src]="device.image" class="card-img-top" alt="Device Image" />
+						<div class="card-body">
+							<h5 class="card-title">{{ device.name }}</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="device-details">
+			<label for="searchDevice">Thông tin mượn</label>
+			<div *ngIf="selectedDevice" class="selected-device">
+				<div class="card" style="width: 18rem;">
+					<img src="{{ selectedDevice.image }}" class="card-img-top" alt="Device Image">
+					<div class="card-body">
+						<h5 class="card-title">{{ selectedDevice.name }}</h5>
+						<p class="card-text">{{ selectedDevice.description }}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="usage-history">
+				<label for="searchDevice">Lịch sử sử dụng</label>
+				<div *ngFor="let history of selectedDevice?.usageHistory" class="history-item">
+					<div class="history-time">
+						<strong>{{ history.date }}</strong>
+					</div>
+					<div class="history-description">
+						<p>{{ history.description }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,203 @@
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0">Quyền hạn</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li routerLink="/dashboard" class="breadcrumb-item d-flex align-items-center">
+                        <span>Trang chủ</span>
+                        <i class="breadcrumb-item-arrow fa-solid fa-angle-right"></i>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <span>Thêm mới lý quyền</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class=" mb-2 card-custom">
+    <div class="general__info">
+        <label for="searchDevice">Thông tin chung</label>
+        <form [formGroup]="roleForm" (submit)="onSubmit()" class="grid p-fluid p-3">
+            <div class="col-12 md:col-6 p-0">
+                <div class="field mb-0 flex ">
+                    <div class="col-12 mb-2 md:col-3 md:mb-0">
+                        <label  htmlFor="name">Tên nhóm quyền/Vai trò<span
+                                class="red-asterisk">*</span></label>
+                    </div>
+                    <div class="col-12 mb-2 md:col-9 md:mb-0">
+                        <input formControlName="name" pInputText placeholder="Nhập tên nhóm quyền" id="name" type="text"
+                            spellcheck="false" />
+                        <app-validation-message [form]="roleForm" [messages]="validationMessages"
+                            field="name"></app-validation-message>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 p-0">
+                <div class="field mb-0 flex ">
+                    <div class="col-12 mb-2 md:col-2 md:mb-0">
+                        <label  htmlFor="phoneNumber">Mô tả nhóm quyền</label>
+                    </div>
+                    <div class="col-12 mb-2 md:col-10 md:mb-0">
+                        <textarea formControlName="description" placeholder="Nhập mô tả" rows="5" cols="30" pInputTextarea></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="identity-info">
+        <label for="searchDevice">Phân quyền</label>
+        <div class="grid p-fluid p-3">
+            <div class="permission-container">
+                <div class="permission-item" *ngFor="let permission of permissions">
+                    <span  class="permission-group">
+                        <label  class="label-per check-box-custom">{{
+                            permission.displayName }}</label>
+                        <p-checkbox class="check-box-custom mb-check" *ngIf="permission.parentPermissionId == null"
+                            [(ngModel)]="permission.selected" (ngModelChange)="onPermissionChange(permission)"
+                            [binary]="true"></p-checkbox>
+                        <div class="child-permissions" *ngIf="permission.childrens?.length">
+                            <p-checkbox class="check-box-custom" *ngFor="let child of permission.childrens"
+                                label="{{ child.displayName }}" [(ngModel)]="child.selected"
+                                (ngModelChange)="onPermissionChange(child)" [binary]="true"></p-checkbox>
+                        </div>
+                        <div class="selected-permissions flex" *ngIf="getSelectedChildren(permission).length > 0">
+                            <span class="selected-per-view"
+                                *ngFor="let selected of getSelectedChildren(permission)">
+                                {{ selected.displayName }}
+                            </span>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex danger-notice" *ngIf="selectedPermissions.length <= 0">
+        <span class="ml-auto">
+            Vui lòng chọn quyền cho nhóm quyền
+        </span>
+    </div>
+</div>
+<div class="d-flex button-container card-custom justify-content-end">
+    <button routerLink="/decentralization/role" pButton class="button" type="button"
+        style="margin-right: 10px; color: white; background-color: gray; border-color: gray; justify-content:center">Hủy</button>
+    <button pButton class="button" type="submit" (click)="onSubmit()"
+        style="color: white; background-color: rgb(21, 21, 94); justify-content:center">Lưu</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="identity-info">
+    <h5 class="title__heading">PHÂN QUYỀN</h5>
+    <div class="grid p-fluid p-3">
+        <div class="permission-container">
+            <div class="section">
+                <h3>Thông tin nhân sự</h3>
+                <div class="permission-group">
+                    <div class="permission-item">
+                        <label>Thông tin công ty</label>
+                        <p-dropdown [options]="permissions"
+                            [(ngModel)]="selectedPermissions['companyInfo']"></p-dropdown>
+                    </div>
+                    <div class="permission-item">
+                        <label>Cơ cấu tổ chức + Sơ đồ</label>
+                        <p-dropdown [options]="permissions"
+                            [(ngModel)]="selectedPermissions['organizationStructure']"></p-dropdown>
+                    </div>
+                    <div class="permission-item">
+                        <label>Vị trí</label>
+                        <p-checkbox label="Xem" [(ngModel)]="selectedPermissions['position'].view"></p-checkbox>
+                        <p-checkbox label="Sửa" [(ngModel)]="selectedPermissions['position'].edit"></p-checkbox>
+                    </div>
+                    <div class="permission-item">
+                        <label>Hợp đồng</label>
+                        <p-dropdown [options]="permissions"
+                            [(ngModel)]="selectedPermissions['contract']"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <h3>Chấm công</h3>
+                <div class="permission-group">
+                    <div class="permission-item">
+                        <label>Quy định chấm công</label>
+                        <p-dropdown [options]="permissions"
+                            [(ngModel)]="selectedPermissions['attendanceRules']"></p-dropdown>
+                    </div>
+                    <div class="permission-item">
+                        <label>Thiết lập ca</label>
+                        <p-dropdown [options]="permissions"
+                            [(ngModel)]="selectedPermissions['shiftSetup']"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <h3>Tính lương</h3>
+                <div class="permission-group">
+                    <div class="permission-item">
+                        <label>Thành phần lương</label>
+                        <p-dropdown [options]="permissions"
+                            [(ngModel)]="selectedPermissions['salaryComponent']"></p-dropdown>
+                    </div>
+                    <div class="permission-item">
+                        <label>KPI</label>
+                        <p-dropdown [options]="permissions" [(ngModel)]="selectedPermissions['kpi']"></p-dropdown>
+                    </div>
+                    <div class="permission-item">
+                        <label>Bảng lương</label>
+                        <p-dropdown [options]="permissions"
+                            [(ngModel)]="selectedPermissions['payroll']"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div> -->

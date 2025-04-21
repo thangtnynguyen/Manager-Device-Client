@@ -1,0 +1,10 @@
+<div class="grid-container">
+  <div *ngFor="let room of rooms" class="grid-item" (click)="onRoomSelect(room)">
+    <div class="card">
+      <img src="{{ room.image }}" class="card-img-top" alt="{{ room.name }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ room.name }}</h5>
+      </div>
+    </div>
+  </div>
+</div>

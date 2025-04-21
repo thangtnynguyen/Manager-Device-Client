@@ -1,0 +1,39 @@
+<div class="row">
+    <!-- Bên trái: Thông tin cá nhân -->
+    <div class="col-md-6">
+      <div class="profile-card">
+        <!-- Ảnh và thông tin cá nhân -->
+        <div class="profile-header">
+          <img src="https://th.bing.com/th/id/OIP.VmhzNZLCUb7b91cDc5AmawHaHv?rs=1&pid=ImgDetMain" alt="User Image" class="profile-img">
+          <div class="profile-info">
+            <label for="searchDevice">{{ user.name }}</label>
+            <p><strong>Chức vụ:</strong> {{ user.position }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Số điện thoại:</strong> {{ user.phone }}</p>
+            <p><strong>Mã số:</strong> {{ user.code }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Bên phải: Lịch sử mượn thiếts bị -->
+    <div class="col-md-6">
+      <div class="history-card">
+        <label for="searchDevice">Lịch sử mượn thiết bị</label>
+        <div class="history-item" *ngFor="let history of user.history">
+          <div class="history-time">
+            <strong>{{ history.date }}</strong>
+          </div>
+          <div class="history-content">
+            <div class="history-device-img">
+              <img [src]="history.deviceImage" alt="{{ history.device }}" class="history-device-img">
+            </div>
+            <div class="history-description">
+              <p>{{ history.device }} - {{ history.action }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

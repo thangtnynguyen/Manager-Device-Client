@@ -1,0 +1,10 @@
+<div class="grid-container">
+  <div *ngFor="let building of buildings" class="grid-item" (click)="onBuildingSelect(building)">
+    <div class="card">
+      <img src="{{ building.image }}" class="card-img-top" alt="{{ building.name }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ building.name }}</h5>
+      </div>
+    </div>
+  </div>
+</div>
