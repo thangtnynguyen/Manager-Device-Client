@@ -17,6 +17,12 @@
                         <span>Menu</span>
                     </a>
                 </li>
+                <li routerLink="/page/borrow/borrowed-history">
+                    <a class="waves-effect {{ currentUrl === '/page/borrow/borrowed-history' ? 'active' : '' }}">
+                        <i class="fa-solid fa-clock-rotate-left pb-0"></i>
+                        <span>Lịch sử mượn thiết bị</span>
+                    </a>
+                </li>
                 <li class="{{ isActive('/page/device')  ? 'mm-active' : '' }}">
                     <a
                         class="waves-effect navigation-menu-main d-flex justify-content-between {{ isActive('/page/device') ? 'active' : '' }}">
@@ -116,7 +122,7 @@
                     </ul>
                 </li>
 
-                <li class="{{ isActive('/admin/banner')  ? 'mm-active' : '' }}">
+                <!-- <li class="{{ isActive('/admin/banner')  ? 'mm-active' : '' }}">
                     <a
                         class="waves-effect navigation-menu-main d-flex justify-content-between {{ isActive('/admin/banner') ? 'active' : '' }}">
                         <div class="navigation-label">
@@ -130,9 +136,9 @@
                         <li class="cursor-pointer" routerLink="/admin/banner"><a
                                 class="{{ isActive('/admin/banner') ? 'active' : '' }}">Quản lý banner</a></li>
                     </ul>
-                </li>
+                </li> -->
 
-                <li class="{{ isActive('/admin/config/web')  ? 'mm-active' : '' }}">
+                <!-- <li class="{{ isActive('/admin/config/web')  ? 'mm-active' : '' }}">
                     <a
                         class="waves-effect navigation-menu-main d-flex justify-content-between {{ isActive('/admin/config/web')? 'active' : '' }}">
                         <div class="navigation-label">
@@ -148,7 +154,7 @@
                         <li class="cursor-pointer" routerLink="/admin/config/system"><a
                                 class="{{ false ? 'active' : '' }}">Cấu hình hệ thống</a></li>
                     </ul>
-                </li>
+                </li> -->
 
                 <li class="{{ isActive('/page/profile')  ? 'mm-active' : '' }}">
                     <a
@@ -192,3 +198,5 @@
         </div>
     </div>
 </div>
+
+<p-toast/>

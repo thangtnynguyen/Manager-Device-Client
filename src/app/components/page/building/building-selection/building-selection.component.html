@@ -22,7 +22,10 @@
 </div>
 
 <div class="row card-background" *ngIf="step !== 4">
-    <label for="searchDevice">Chọn Tòa Nhà, Tầng và Phòng Học</label>
+    <div>
+        <label for="searchDevice">Chọn Tòa Nhà, Tầng và Phòng Học</label>
+        <button class="ml-5" pButton icon="pi pi-spin pi-spinner" label="Chọn lại" (click)="step=1"></button>
+    </div>
 
     <!-- Chọn tòa nhà -->
     <app-building-select *ngIf="step === 1" (buildingSelected)="onBuildingSelected($event)"></app-building-select>
@@ -41,7 +44,13 @@
     <div class="col-md-6">
         <!-- Bên trái: Thông tin phòng, tòa nhà, tầng, ảnh -->
         <div class="room-info">
-            <label for="roomInfo">Thông tin phòng học</label>
+            <div class="d-flex">
+                <label for="roomInfo">Thông tin phòng học</label>
+                <div class="ml-5">
+                    <button class="ml-5" pButton icon="pi pi-spin pi-spinner" label="Chọn lại"
+                        (click)="step=1"></button>
+                </div>
+            </div>
             <div>
                 <p><strong>Tòa nhà:</strong> {{ selectedBuilding?.name }}</p>
                 <p><strong>Tầng:</strong> {{ selectedFloor?.name }}</p>
@@ -56,16 +65,52 @@
         <div class="device-list">
             <label for="deviceList">Danh sách thiết bị trong phòng</label>
             <div class="grid-container">
-                <div *ngFor="let device of devices" class="grid-item">
+                <div *ngFor="let deviceCategorySummary of deviceCategorySummaries" class="grid-item" (click)="showDetail(deviceCategorySummary)">
                     <div class="card">
-                        <img [src]="device.image" class="card-img-top" alt="Device Image">
+                        <img [src]="baseImageUrl+deviceCategorySummary.imageUrl" class="card-img-top"
+                            alt="Device Image">
                         <div class="card-body">
-                            <h5 class="card-title">{{ device.name }}</h5>
-                            <p class="card-text">Số lượng: {{ device.quantity }}</p>
+                            <h5 class="card-title">{{ deviceCategorySummary.name }}</h5>
+                            <p class="card-text">Số lượng: {{ deviceCategorySummary.quantity }}</p>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="d-flex text-center justify-content-center" *ngIf="deviceCategorySummaries.length==0">
+                <p>Không có bản ghi nào!!</p>
+              </div>
         </div>
     </div>
 </div>
+
+
+<p-dialog  [(visible)]="displayDialog" [modal]="true" [style]="{ width: '60vw' }"
+    [closable]="true">
+    <p-table [value]="devices" [paginator]="true" [rows]="5" [responsiveLayout]="'scroll'">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>S/N</th>
+                <th>Tên thiết bị</th>
+                <th>Mô tả</th>
+                <th>Trạng thái</th>
+                <th>Phòng</th>
+                <th>Ngày mua</th>
+                <th>Bảo hành đến</th>
+                <th>Ngày hỏng</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-device let-i="rowIndex">
+            <tr>
+                <td>{{ device.serialNumber }}</td>
+                <td>{{ device.name }}</td>
+                <td>{{ device.description || '-' }}</td>
+                <td>{{ device.statusLabel }}</td>
+                <td>{{ device.roomName || 'Chưa có' }}</td>
+                <td>{{ device.purchaseDate | date:'dd/MM/yyyy' }}</td>
+                <td>{{ device.warrantyExpiryDate | date:'dd/MM/yyyy' }}</td>
+                <td>{{ device.brokenDate ? (device.brokenDate | date:'dd/MM/yyyy') : '-' }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>

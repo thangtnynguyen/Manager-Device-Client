@@ -20,193 +20,127 @@
         </div>
     </div>
 </div>
-<div class="row row-custom">
+<form class="row" [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
     <div class="col-8">
         <div class="card">
             <div class="card-body">
-                <form (ngSubmit)="onSubmit()">
-                    <div class="form-group">
-                        <div class="row">
-                            <label class="col-md-3 col-lg-3 col-form-label" for="device-category-id">Chọn loại thiết
-                                bị<span class="text-danger">*</span></label>
-                            <div class="col-md-9 col-lg-9 col-table-responsive p-0">
-                                <select class="form-control" id="device-category-id" name="deviceCategoryId" ngModel>
-                                    <option value="" disabled selected>Chọn loại thiết bị</option>
-                                    <option *ngFor="let category of categories" [value]="category.id">{{ category.name
-                                        }}</option>
-                                </select>
-                            </div>
+                <div>
+                    <div class="p-field">
+                        <label for="deviceCategoryId" class="me-2">Chọn loại thiết bị <span class="text-danger">*</span></label>
+                        <p-dropdown id="deviceCategoryId" formControlName="deviceCategoryId" [options]="categories"
+                            optionLabel="name" optionValue="id" placeholder="Chọn loại thiết bị">
+                        </p-dropdown>
+                        <app-validation-message [form]="deviceForm" [messages]="validationMessages"
+                            field="deviceCategoryId"></app-validation-message>
+                    </div>
+
+                    <div class="p-field">
+                        <label for="serialNumber">Số định danh <span class="text-danger">*</span></label>
+                        <input pInputText id="serialNumber" formControlName="serialNumber"
+                            placeholder="Nhập số định danh" />
+                        <app-validation-message [form]="deviceForm" [messages]="validationMessages"
+                            field="serialNumber"></app-validation-message>
+                    </div>
+
+                    <div class="p-field">
+                        <label for="name">Tên thiết bị <span class="text-danger">*</span></label>
+                        <input pInputText id="name" formControlName="name" placeholder="Nhập tên thiết bị" />
+                        <app-validation-message [form]="deviceForm" [messages]="validationMessages"
+                            field="name"></app-validation-message>
+                    </div>
+
+                    <div class="p-field">
+                        <label for="description">Mô tả</label>
+                        <textarea pInputTextarea id="description" formControlName="description" rows="5"
+                            placeholder="Nhập mô tả"></textarea>
+                    </div>
+
+                    <div class="p-field">
+                        <label for="selectedRoomName">Phòng chứa<span class="text-danger">*</span></label>
+                        <div class="p-inputgroup">
+                            <input readonly pInputText id="selectedRoomName" formControlName="selectedRoomName"
+                                type="number" placeholder="Tên phòng" />
+                            <button pButton type="button" icon="pi pi-search" (click)="displayRoomDialog=true"></button>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label class="col-md-3 col-lg-3 col-form-label" for="serial-number">Số định danh<span
-                                    class="text-danger">*</span></label>
-                            <div class="col-md-9 col-lg-9 col-table-responsive p-0">
-                                <input class="form-control" id="serial-number" type="text" name="serialNumber" ngModel>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label class="col-md-3 col-lg-3 col-form-label" for="name">Tên thiết bị<span
-                                    class="text-danger">*</span></label>
-                            <div class="col-md-9 col-lg-9 col-table-responsive p-0">
-                                <input class="form-control" id="name" type="text" name="name" ngModel>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label class="col-md-3 col-lg-3 col-form-label" for="description">Mô tả</label>
-                            <div class="col-md-9 col-lg-9 col-table-responsive p-0">
-                                <textarea class="form-control" id="description" name="description" ngModel
-                                    rows="5"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="form-group">
-                        <div class="row">
-                            <label class="col-md-3 col-lg-3 col-form-label" for="room-id">Room ID</label>
-                            <div class="col-md-9 col-lg-6 col-table-responsive p-0">
-                                <input [(ngModel)]="selectedRoomName" class="form-control" id="room-id" type="number" name="roomId">
-                                <button class="btn btn-primary" (click)="openModal()">Open Room Selector</button>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="form-group">
-                        <div class="row">
-                            <label class="col-md-3 col-lg-3 col-form-label" for="room-id">Phòng chứa</label>
-                            <div class="col-md-9 col-lg-9 col-table-responsive p-0">
-                                <div class="row">
-                                    <div class="col-md-10 col-lg-10">
-                                        <input [(ngModel)]="selectedRoomName" class="form-control" id="room-id"
-                                            type="number" name="roomId">
-                                    </div>
-                                    <div class="col-md-2 col-lg-2">
-                                        <button class="btn btn-primary" (click)="openModal()">Chọn phòng</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label class="col-md-3 col-lg-3 col-form-label" for="purchase-date">Ngày mua</label>
-                            <div class="col-md-9 col-lg-6 col-table-responsive p-0">
-                                <input class="form-control" id="purchase-date" type="date" name="purchaseDate" ngModel>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label class="col-md-3 col-lg-3 col-form-label" for="warranty-expiry-date">Ngày hết bảo hành
-                                Date</label>
-                            <div class="col-md-9 col-lg-6 col-table-responsive p-0">
-                                <input class="form-control" id="warranty-expiry-date" type="date"
-                                    name="warrantyExpiryDate" ngModel>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
+
     <div class="col-4">
         <div class="card">
             <div class="card-body">
-                <div class="form-group mt-100">
-                    <div class="d-flex">
-                        <div class="ml-auto">
-                            <!-- Chọn ảnh với icon -->
-                            <div class="form-group">
-                                <label for="imageUpload" class="custom-file-upload">
-                                    <i class="fa fa-image"></i> 
-                                </label>
-                                <input type="file" id="imageUpload" (change)="onImageSelect($event)" class="form-control-file">
-                            </div>
-    
-                            <!-- Hiển thị ảnh preview -->
-                            <div *ngIf="imagePreview" class="image-preview-container">
-                                <img [src]="imagePreview" alt="Image Preview" class="img-fluid mb-3" />
-                            </div>
-    
-                            <!-- Nút bấm -->
-                            <div class="d-flex mt-3">
-                                <div class="ml-auto">
-                                    <button routerLink="/page/device/list" type="button" class="btn btn-secondary waves-effect waves-light">Quay lại</button>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light ml-2">Xác nhận</button>
-                                </div>
-                            </div>
-                        </div>
+                <div class="p-field p-grid">
+                    <!-- Chọn ngày mượn -->
+                    <div class="p-col-12 p-md-6">
+                        <label for="purchaseDate">Ngày mua</label>
+                        <p-calendar id="purchaseDate" formControlName="purchaseDate" [showTime]="false" placeholder="Chọn ngày mua"></p-calendar>
                     </div>
+    
+                    <!-- Chọn ngày trả -->
+                    <div class="p-col-12 p-md-6">
+                        <label for="warrantyExpiryDate">Ngày hết bảo hành</label>
+                        <p-calendar id="warrantyExpiryDate" formControlName="warrantyExpiryDate" [showTime]="false" placeholder="Chọn ngày hết bảo hành"></p-calendar>
+                    </div>
+                </div>             
+                
+                <div class="form-group">
+                    <label for="imageUpload" class="custom-file-upload">
+                        <i class="fa fa-image"></i>
+                    </label>
+                    <input type="file" id="imageUpload" (change)="onImageSelect($event)" class="form-control-file">
+                    <p-image *ngIf="imagePreview" [src]="imagePreview" alt="Image Preview" width="250" [preview]="true"
+                        class="img-fluid mb-3">
+                    </p-image>
+
+                </div>
+                <div class="p-field text-end">
+                    <button pButton label="Xác nhận" type="submit" [disabled]="deviceForm.invalid"></button>
                 </div>
             </div>
         </div>
     </div>
-    
-
-</div>
+</form>
 
 
-<!-- puppop -->
-<ng-template #roomSelectorTemplate>
-    <div class="modal-header">
-        <h5 class="modal-title">Chọn phòng chứa trang thiết bị</h5>
-        <button type="button" class="close" (click)="modalRef.hide()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form>
-            <div class="form-row">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="Room name" [(ngModel)]="searchParams.name">
-                </div>
-                <div class="col">
-                    <select class="form-control" [(ngModel)]="searchParams.buildingId">
-                        <option value="">Tìm theo tòa nhà</option>
-                        <option *ngFor="let building of buildings" [value]="building.id">{{ building.name }}</option>
-                    </select>
-                </div>
-                <div class="col">
-                    <select class="form-control" [(ngModel)]="searchParams.floorId">
-                        <option value="">Tìm theo tầng</option>
-                        <option *ngFor="let floor of floors" [value]="floor.id">{{ floor.name }}</option>
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <button type="button" class="btn btn-primary" (click)="loadRooms()">Tìm kiếm</button>
-                </div>
-            </div>
-        </form>
-        <div class="room-grid">
-            <div *ngFor="let room of rooms" class="room-item" (click)="selectRoom(room)">
-                <div class="card-room">
-                    <img src="{{ room.image }}" class="card-img-top" alt="Room Image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ room.name }}</h5>
-                        <p class="card-text">{{ room.description }}</p>
-                    </div>
+<!-- Dialog for Room Selector -->
+<p-dialog header="Chọn phòng chứa trang thiết bị" [(visible)]="displayRoomDialog" [modal]="true"
+    [style]="{width: '60vw'}">
+    <form (ngSubmit)="onRoomSearchSubmit()">
+        <div class="p-field">
+            <label for="roomName">Tên phòng</label>
+            <input pInputText id="roomName" [(ngModel)]="searchParams.name"[ngModelOptions]="{standalone: true}" name="roomName"
+                placeholder="Tìm theo tên phòng" />
+        </div>
+
+        <div class="p-field">
+            <label for="buildingId" class="me-2">Tòa nhà</label>
+            <p-dropdown id="buildingId" [(ngModel)]="searchParams.buildingId"[ngModelOptions]="{standalone: true}" [options]="buildings" optionLabel="name"
+                optionValue="id" placeholder="Tìm theo tòa nhà" [style]="{ 'width': '100%', 'max-width': '400px' }">
+            </p-dropdown>
+            <label for="floorId" class="me-2 ml-2">Tầng</label>
+            <p-dropdown id="floorId" [(ngModel)]="searchParams.floorId"[ngModelOptions]="{standalone: true}" [options]="floors" optionLabel="name"
+                optionValue="id" placeholder="Tìm theo tầng" [style]="{ 'width': '100%', 'max-width': '400px' }">
+            </p-dropdown>
+            <button type="submit" class="ml-3" pButton label="Tìm kiếm" icon="pi pi-search"></button>
+        </div>
+    </form>
+
+    <div *ngIf="rooms && rooms.length > 0" class="p-grid-t">
+        <div *ngFor="let room of rooms">
+            <div class="p-card" (click)="selectRoom(room)">
+                <img src="{{ room.image }}" alt="Room Image" class="p-card-img" />
+                <div class="p-card-body">
+                    <h5>{{ room.name }}</h5>
+                    <p>{{ room.floorName }} - {{room.buildingName}}</p>
                 </div>
             </div>
         </div>
-        <!-- <div class="room-grid-container">
-            <div *ngFor="let room of rooms" class="room-grid-item" (click)="selectRoom(room)">
-                <div class="card">
-                    <img [src]="room.image" class="card-img-top" alt="Room Image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ room.name }}</h5>
-                        <p class="card-text">{{ room.description }}</p>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Đóng</button>
-    </div>
-</ng-template>
 
-<!-- <input type="text" class="form-control mt-2" placeholder="Selected Room" [(ngModel)]="selectedRoomName"> -->
+    <!-- Footer với các nút -->
+    <p-footer>
+        <button pButton label="Đóng" icon="pi pi-times" (click)="displayRoomDialog = false"></button>
+    </p-footer>
+</p-dialog>

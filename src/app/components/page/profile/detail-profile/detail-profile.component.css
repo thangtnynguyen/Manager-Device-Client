@@ -1,102 +1,139 @@
 /* Bố cục chung */
 .row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+/* Bên trái: Thông tin cá nhân */
+.profile-card {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.profile-info {
+  font-size: 16px;
+}
+
+.profile-info h3 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.profile-info p {
+  margin: 5px 0;
+}
+
+/* Bên phải: Lịch sử mượn thiết bị */
+.history-card {
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.history-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-time {
+  font-weight: bold;
+  /* color: #007bff; */
+}
+
+.history-content {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.history-device-img {
+  margin-right: 15px;
+}
+
+.history-device-img img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.history-description {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Hiệu ứng hover cho lịch sử mượn */
+.history-item:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+
+
+/* Đặt nút bút ở góc trên bên phải */
+.edit-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+/* Dialog form */
+.p-dialog {
+  width: 50vw;
+  /* Bạn có thể điều chỉnh chiều rộng của dialog */
+}
+
+/* Cải thiện cho các input */
+.p-inputtext {
+  width: 100%;
+}
+
+/* Căn chỉnh các nút nằm ngang ở cuối form */
+.footer-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end; /* Căn chỉnh các nút sang bên phải */
+  gap: 10px; /* Khoảng cách giữa các nút */
+}
+
+
+
+label {
+  font-weight: 500;
+  color: #333;
+}
+
+
+
+
+@media (max-width: 767px) {
+  .row {
+    flex-direction: column;
   }
-  
-  /* Bên trái: Thông tin cá nhân */
-  .profile-card {
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .col-md-6 {
+    width: 100%;
+    margin-bottom: 20px;
   }
-  
-  .profile-header {
-    display: flex;
-    align-items: center;
-  }
-  
-  .profile-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin-right: 20px;
-  }
-  
-  .profile-info {
-    font-size: 16px;
-  }
-  
-  .profile-info h3 {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .profile-info p {
-    margin: 5px 0;
-  }
-  
-  /* Bên phải: Lịch sử mượn thiết bị */
-  .history-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .history-item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .history-item:last-child {
-    border-bottom: none;
-  }
-  
-  .history-time {
-    font-weight: bold;
-    /* color: #007bff; */
-  }
-  
-  .history-content {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .history-device-img {
-    margin-right: 15px;
-  }
-  
-  .history-device-img img {
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-  
-  .history-description {
-    font-size: 14px;
-    color: #555;
-  }
-  
-  /* Hiệu ứng hover cho lịch sử mượn */
-  .history-item:hover {
-    background-color: #f1f1f1;
-    cursor: pointer;
-  }
-  
-  @media (max-width: 767px) {
-    .row {
-      flex-direction: column;
-    }
-  
-    .col-md-6 {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-  }
-  
+}

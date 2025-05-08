@@ -11,6 +11,16 @@
 
 
 
+::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.p-dialog .p-dialog-header .p-dialog-title {
+    font-size: 14px;
+    color: #ccc;
+}
+
 
 
 label {

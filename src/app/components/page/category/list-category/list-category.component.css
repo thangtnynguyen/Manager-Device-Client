@@ -1,20 +1,113 @@
-.container-description{
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px; /* Số ký tự tối đa bạn muốn hiển thị */
+.card-custom {
+    background: #fff;
+    margin-bottom: 2rem;
+    border: none;
+    box-shadow: var(--card-shadow);
+    border-radius: 4px;
+    padding: 1rem;
 }
-.container-title{
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100px; /* Số ký tự tối đa bạn muốn hiển thị */
+.text-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
+
+
+.read-more-button {
+    font-weight: bold;       
+    color: #2a2986;             
+    padding: 5px 10px;       
+    border-radius: 4px;       
+    cursor: pointer;         
+    transition: background-color 0.2s ease-in-out; 
+    font-size: .8rem;
+}
+
+.read-more-button:hover {
+    background-color: #e2e6ea; 
+}
+.max-width-500{
+    max-width: 300px;
+}
+
+
 .container-image{
    width: 100px;
    height: 60px;
    border-radius: 5px;
+}
+
+
+
+/* Tùy chỉnh cho p-dialog */
+.ui-dialog {
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.ui-dialog-title {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #4e4e4e;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    font-size: 20px;
+    color: #4e4e4e;
+    background: transparent;
+}
+
+.p-field {
+    margin-bottom: 20px;
+}
+
+.p-field label {
+    font-weight: 500;
+    color: #333;
+}
+
+.p-inputtext {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.p-inputtextarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+.p-fileupload {
+    width: 100%;
+    padding: 5px;
+}
+
+.p-fileupload .p-button {
+    background-color: #007bff;
+    color: white;
+}
+
+
+
+.img-thumbnail {
+    border-radius: 8px;
+    margin-top: 10px;
+}
+.p-footer {
+    display: flex;
+    justify-content: flex-end;  
+}
+
+.p-d-flex {
+    display: flex;
+}
+
+.p-jc-end {
+    justify-content: flex-end; 
 }
 

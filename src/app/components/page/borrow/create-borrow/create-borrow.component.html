@@ -23,19 +23,23 @@
 
 <div class="row card-background">
     <div class="col-md-6 p-3">
-        <div class="form-group">
-            <label for="searchDevice">Tìm thiết bị</label>
-            <input type="text" class="form-control" id="searchDevice" placeholder="Tìm thiết bị..."
-                [(ngModel)]="searchText" />
-        </div>
-
-        <div class="device-grid">
-            <div *ngFor="let device of filteredDevices" class="device-item" (click)="selectDevice(device)">
-                <div class="card">
-                    <img src="{{ device.image }}" class="card-img-top" alt="Device Image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ device.name }}</h5>
-                        <p class="card-text">{{ device.description }}</p>
+        <div class="device-selection">
+            <label for="deviceSearch">Tìm kiếm thiết bị</label>
+            <div class="p-inputgroup">
+                <input type="text" pInputText [(ngModel)]="queryParameters.keyword"
+                    placeholder="Tên,mã thiết bị,mô tả,.." spellcheck="false" />
+                <button pButton type="button" icon="pi pi-search" (click)="searchDevices()">
+                </button>
+            </div>
+            <div class="device-grid">
+                <div *ngFor="let device of devices" class="device-item" (click)="selectDevice(device)">
+                    <div class="card">
+                        <img [src]="baseImageUrl+device.deviceCategoryImageUrl" class="card-img-top"
+                            alt="Device Image" />
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ device.name }} - Mã máy {{device.serialNumber}}</h5>
+                            <p>Phòng {{device.roomName}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,44 +48,148 @@
 
     <div class="col-md-6 p-3">
         <label for="searchDevice">Thông tin mượn</label>
-        <div *ngIf="selectedDevice" class="selected-device">
-            <div class="card" style="width: 18rem;">
-                <img src="{{ selectedDevice.image }}" class="card-img-top" alt="Device Image">
-                <div class="card-body">
-                    <h5 class="card-title">{{ selectedDevice.name }}</h5>
-                    <p class="card-text">{{ selectedDevice.description }}</p>
+        <div class="d-flex">
+            <div *ngIf="selectedDevice" class="selected-device">
+                <div class="card" style="width: 15rem;">
+                    <img src="{{ baseImageUrl+selectedDevice.deviceCategoryImageUrl}}" class="card-img-top"
+                        alt="Device Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ selectedDevice.name }}</h5>
+                        <p class="card-text">{{ selectedDevice.description }}</p>
+                    </div>
                 </div>
+            </div>
+            <div *ngIf="selectedDevice" class="ml-3">
+                <p>Tên: {{ selectedDevice.name }}</p>
+                <p>Trạng thái: {{ selectedDevice.statusLabel }}</p>
+                <p>Vị trí: Phòng {{ selectedDevice.roomName }} - {{ selectedDevice.floorName }} - {{
+                    selectedDevice.buildingName }}</p>
+                <p>Mô tả: {{ selectedDevice.description }}</p>
             </div>
         </div>
 
-        <form *ngIf="selectedDevice" (ngSubmit)="submitForm()">
-            <div class="form-group">
-                <label for="borrowDate">Ngày mượn</label>
-                <input type="date" class="form-control" id="borrowDate" [(ngModel)]="borrowDate" name="borrowDate"
-                    required />
+        <form *ngIf="selectedDevice" [formGroup]="borrowForm" (ngSubmit)="onSubmit()">
+            <div class="p-field d-flex flex-wrap justify-content-space-between">
+                <!-- Chọn ngày mượn -->
+                <div class="p-col-12 p-md-6">
+                    <label class="me-3" for="borrowDate">Ngày mượn <span class="text-danger">*</span></label>
+                    <p-calendar id="borrowDate" formControlName="borrowDate" dateFormat="yy-mm-dd" [showTime]="false"
+                        placeholder="Chọn ngày mượn">
+                    </p-calendar>
+                    <app-validation-message [form]="borrowForm" [messages]="validationMessages" field="borrowDate">
+                    </app-validation-message>
+                </div>
+
+                <!-- Chọn ngày trả -->
+                <div class="p-col-12 p-md-6 ml-2">
+                    <label class="me-3" for="dueDate">Ngày trả <span class="text-danger">*</span></label>
+                    <p-calendar id="dueDate" formControlName="dueDate" dateFormat="yy-mm-dd" [showTime]="false"
+                        placeholder="Chọn ngày trả">
+                    </p-calendar>
+                    <app-validation-message [form]="borrowForm" [messages]="validationMessages" field="dueDate">
+                    </app-validation-message>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="returnDate">Ngày trả</label>
-                <input type="date" class="form-control" id="returnDate" [(ngModel)]="returnDate" name="returnDate"
-                    required />
+
+
+            <!-- Người mượn -->
+            <div class="p-field">
+                <label for="borrower">Người mượn <span class="text-danger">*</span></label>
+                <input readonly pInputText id="borrower" formControlName="borrower" placeholder="Nhập tên người mượn" />
+                <app-validation-message [form]="borrowForm" [messages]="validationMessages"
+                    field="borrower"></app-validation-message>
             </div>
 
-            <div class="form-group">
-                <label for="borrower">Người mượn</label>
-                <input type="text" class="form-control" id="borrower" [(ngModel)]="borrower" name="borrower" required />
+            <div class="d-flex flex-wrap justify-content-space-between">
+                <!-- Lớp học mượn -->
+                <div class="p-col-12 p-md-6">
+                    <div class="p-field">
+                        <label for="class">Lớp học mượn <span class="text-danger">*</span></label>
+                        <input pInputText id="class" formControlName="class" placeholder="Nhập lớp học mượn" />
+                        <app-validation-message [form]="borrowForm" [messages]="validationMessages"
+                            field="class"></app-validation-message>
+                    </div>
+                </div>
+
+                <!-- Phòng mượn -->
+                <div class="p-col-12 p-md-6  ml-4">
+                    <div class="p-field">
+                        <label for="roomId">Phòng mượn <span class="text-danger">*</span></label>
+                        <div class="d-flex">
+                            <input readonly pInputText id="roomName" formControlName="roomName"
+                                placeholder="Nhập phòng mượn" />
+                            <button pButton type="button" label="Chọn" (click)="displayRoomDialog=true">
+                            </button>
+                        </div>
+                    </div>
+                    <app-validation-message [form]="borrowForm" [messages]="validationMessages" field="roomName">
+                    </app-validation-message>
+                </div>
+
             </div>
 
-            <div class="form-group">
-                <label for="class">Lớp học mượn</label>
-                <input type="text" class="form-control" id="class" [(ngModel)]="borrowClass" name="borrowClass"
-                    required />
+
+            <!-- Mô tả -->
+            <div class="p-field">
+                <label for="description">Mô tả</label>
+                <textarea pInputTextarea id="description" formControlName="description" rows="5"
+                    placeholder="Nhập mô tả"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Tạo đơn mượn</button>
+            <div class="p-field text-end">
+                <button pButton label="Tạo đơn mượn" type="submit" [disabled]="borrowForm.invalid"></button>
+            </div>
         </form>
+
         <div *ngIf="!selectedDevice">
             <p>Chọn thiết bị để mượn.</p>
         </div>
     </div>
 </div>
+
+
+
+<!-- Dialog for Room Selector -->
+<p-dialog header="Chọn phòng chứa trang thiết bị" [(visible)]="displayRoomDialog" [modal]="true"
+    [style]="{width: '60vw'}">
+    <form (ngSubmit)="onRoomSearchSubmit()">
+        <div class="p-field">
+            <label for="roomName">Tên phòng</label>
+            <input pInputText id="roomName" [(ngModel)]="searchParams.name" [ngModelOptions]="{standalone: true}"
+                name="roomName" placeholder="Tìm theo tên phòng" />
+        </div>
+
+        <div class="p-field">
+            <label for="buildingId" class="me-2">Tòa nhà</label>
+            <p-dropdown id="buildingId" [(ngModel)]="searchParams.buildingId" [ngModelOptions]="{standalone: true}"
+                [options]="buildings" optionLabel="name" optionValue="id" placeholder="Tìm theo tòa nhà"
+                [style]="{ 'width': '100%', 'max-width': '400px' }">
+            </p-dropdown>
+            <label for="floorId" class="me-2 ml-2">Tầng</label>
+            <p-dropdown id="floorId" [(ngModel)]="searchParams.floorId" [ngModelOptions]="{standalone: true}"
+                [options]="floors" optionLabel="name" optionValue="id" placeholder="Tìm theo tầng"
+                [style]="{ 'width': '100%', 'max-width': '400px' }">
+            </p-dropdown>
+            <button type="submit" class="ml-3" pButton label="Tìm kiếm" icon="pi pi-search"></button>
+        </div>
+    </form>
+
+    <!-- Grid để hiển thị các phòng -->
+    <div *ngIf="rooms && rooms.length > 0" class="p-grid">
+        <div *ngFor="let room of rooms">
+            <div class="p-card" (click)="selectRoom(room)">
+                <img src="{{ room.image }}" alt="Room Image" class="p-card-img" />
+                <div class="p-card-body">
+                    <h5>{{ room.name }}</h5>
+                    <p>{{ room.floorName }} - {{room.buildingName}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer với các nút -->
+    <p-footer>
+        <button pButton label="Đóng" icon="pi pi-times" (click)="displayRoomDialog = false"></button>
+    </p-footer>
+</p-dialog>

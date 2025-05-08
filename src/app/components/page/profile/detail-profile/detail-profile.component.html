@@ -1,39 +1,85 @@
 <div class="row">
-    <!-- Bên trái: Thông tin cá nhân -->
-    <div class="col-md-6">
-      <div class="profile-card">
-        <!-- Ảnh và thông tin cá nhân -->
-        <div class="profile-header">
-          <img src="https://th.bing.com/th/id/OIP.VmhzNZLCUb7b91cDc5AmawHaHv?rs=1&pid=ImgDetMain" alt="User Image" class="profile-img">
-          <div class="profile-info">
-            <label for="searchDevice">{{ user.name }}</label>
-            <p><strong>Chức vụ:</strong> {{ user.position }}</p>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Số điện thoại:</strong> {{ user.phone }}</p>
-            <p><strong>Mã số:</strong> {{ user.code }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    <!-- Bên phải: Lịch sử mượn thiếts bị -->
-    <div class="col-md-6">
-      <div class="history-card">
-        <label for="searchDevice">Lịch sử mượn thiết bị</label>
-        <div class="history-item" *ngFor="let history of user.history">
-          <div class="history-time">
-            <strong>{{ history.date }}</strong>
-          </div>
-          <div class="history-content">
-            <div class="history-device-img">
-              <img [src]="history.deviceImage" alt="{{ history.device }}" class="history-device-img">
-            </div>
-            <div class="history-description">
-              <p>{{ history.device }} - {{ history.action }}</p>
-            </div>
-          </div>
+  <div class="col-md-6">
+    <div class="profile-card">
+      <div class="profile-header">
+        <img src="https://i.pinimg.com/736x/79/49/9d/79499dbce1a9e7823a8840740c08f14f.jpg" alt="User Image"
+          class="profile-img">
+        <div class="profile-info">
+          <strong for="searchDevice">{{ user.name }}</strong>
+          <p><label>Chức vụ:</label> {{ user.position }}</p>
+          <p><label>Email:</label> {{ user.email }}</p>
+          <p><label>Số điện thoại:</label> {{ user.phoneNumber }}</p>
+          <p><label>Mã số:</label> {{ user.code }}</p>
+
+          <button pButton icon="pi pi-spin pi-spinner" label="Đổi mật khẩu" class="p-button-rounded  edit-btn"
+            (click)="showPasswordChangeForm = !showPasswordChangeForm"></button>
         </div>
       </div>
     </div>
   </div>
-  
+  <div class="col-md-6">
+    <div class="history-card">
+      <label for="searchDevice">Lịch sử mượn thiết bị</label>
+      <div class="history-item" *ngFor="let deviceLog of deviceLogs">
+        <div class="history-time">
+          <strong>{{ deviceLog.timestamp }}</strong>
+        </div>
+        <div class="history-content">
+          <div class="history-device-img">
+            <img [src]="config.baseUrl+deviceLog.deviceCategoryImageUrl" alt="{{ deviceLog.deviceName }}" class="history-device-img">
+          </div>
+          <div class="history-description">
+            <p>{{ deviceLog.deviceName }} - {{ deviceLog.description }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-center " *ngIf="deviceLogs.length==0">
+        <p>Không có lịch sử mượn thiết bị</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Form đổi mật khẩu -->
+<p-dialog header="Đổi mật khẩu" [(visible)]="showPasswordChangeForm" [modal]="true" [style]="{width: '50vw'}">
+  <div class="d-flex">
+    <!-- Cột ảnh -->
+    <div class="col-12 col-md-5 image-container">
+      <img src="assets/images/school/logo.png" alt="Đổi mật khẩu" style="width: 100%; height: auto;" />
+    </div>
+
+    <!-- Cột form -->
+    <div class="col-12 col-md-7">
+      <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
+        <div class="p-field">
+          <label for="oldPassword">Mật khẩu cũ <span class="text-danger">*</span></label>
+          <input pInputText id="oldPassword" formControlName="oldPassword" type="password" placeholder="Nhập mật khẩu cũ" />
+          <app-validation-message [form]="passwordForm" [messages]="validationMessages" field="oldPassword"></app-validation-message>
+        </div>
+
+        <div class="p-field mt-2">
+          <label for="newPassword">Mật khẩu mới <span class="text-danger">*</span></label>
+          <input pInputText id="newPassword" formControlName="newPassword" type="password" placeholder="Nhập mật khẩu mới" />
+          <app-validation-message [form]="passwordForm" [messages]="validationMessages" field="newPassword"></app-validation-message>
+        </div>
+
+        <div class="p-field mt-2">
+          <label for="confirmPassword">Nhập lại mật khẩu mới <span class="text-danger">*</span></label>
+          <input pInputText id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Nhập lại mật khẩu mới" />
+          <app-validation-message [form]="passwordForm" [messages]="validationMessages" field="confirmPassword"></app-validation-message>
+        </div>
+
+        <p-footer>
+          <div class="footer-buttons mt-3">
+            <button pButton label="Đổi mật khẩu" type="submit" [disabled]="passwordForm.invalid"></button>
+            <button pButton label="Đóng" icon="pi pi-times" (click)="showPasswordChangeForm = false"></button>
+          </div>
+        </p-footer>
+      </form>
+    </div>
+  </div>
+</p-dialog>
+
+
+<p-toast></p-toast>

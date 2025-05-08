@@ -1,0 +1,168 @@
+<p-tabView>
+  <p-tabPanel header="Đang mượn">
+    <div class="row g-3">
+      <div class="col-12 col-md-6 col-lg-4" *ngFor="let borrowRequestApproved of borrowRequestApproveds">
+        <div class="border-round shadow-2 p-3 surface-card">
+          <div class="flex align-item-center mb-3">
+            <img [src]="baseImageUrl+borrowRequestApproved.deviceCategoryImageUrl" alt="device" width="60" height="60"
+              class="border-circle mr-3" />
+            <div>
+              <div class="font-bold text-lg">{{ borrowRequestApproved.deviceName }}</div>
+              <div class="text-sm text-color-secondary">
+                Serial: {{ borrowRequestApproved.deviceSerialNumber }}
+              </div>
+            </div>
+          </div>
+  
+          <div class="text-sm mb-2">
+            👤 <strong>{{ borrowRequestApproved.userActionName }}</strong> <br />
+            👨‍🏫 Lớp: {{ borrowRequestApproved.class }}
+          </div>
+  
+          <div class="text-sm mb-2">
+            🏢 {{ borrowRequestApproved.buildingName }} - {{ borrowRequestApproved.floorName }} - {{
+            borrowRequestApproved.roomName }}
+          </div>
+  
+          <div class="text-sm mb-2">
+            📅 Mượn: {{ borrowRequestApproved.borrowDate || '-' }} <br />
+            ⏳ Hạn trả: {{ borrowRequestApproved.dueDate || '-' }}
+          </div>
+  
+          <div class="text-sm text-color-secondary mb-3">
+            📝 {{ borrowRequestApproved.description || 'Không có ghi chú' }}
+          </div>
+  
+          <!-- Nút Hoàn trả -->
+          <button pButton type="button" label="Hoàn trả" icon="pi pi-undo"
+                  class="p-button-sm p-button-success w-100"
+                  (click)="onReturn(borrowRequestApproved)">
+          </button>
+  
+        </div>
+      </div>
+    </div>
+    <div class="d-flex text-center justify-content-center" *ngIf="borrowRequestApproveds.length==0">
+      <p>Không có bản ghi nào!!</p>
+    </div>
+  </p-tabPanel>
+  
+  <p-tabPanel header="Bị từ chối">
+    <div class="row g-3">
+      <div class="col-12 col-md-6 col-lg-4" *ngFor="let borrowRequestRejected of borrowRequestRejecteds">
+        <div class="border-round shadow-2 p-3 surface-card">
+          <div class="flex align-items-center mb-3">
+            <img [src]="baseImageUrl+borrowRequestRejected.deviceCategoryImageUrl" alt="device" width="60" height="60" class="border-circle mr-3" />
+            <div>
+              <div class="font-bold text-lg">{{ borrowRequestRejected.deviceName }}</div>
+              <div class="text-sm text-color-secondary">
+                Serial: {{ borrowRequestRejected.deviceSerialNumber }}
+              </div>
+            </div>
+          </div>
+
+          <div class="text-sm mb-2">
+            👤 <strong>{{ borrowRequestRejected.userActionName }}</strong> <br />
+            👨‍🏫 Lớp: {{ borrowRequestRejected.class }}
+          </div>
+
+          <div class="text-sm mb-2">
+            🏢 {{ borrowRequestRejected.buildingName }} - {{ borrowRequestRejected.floorName }} - {{ borrowRequestRejected.roomName }}
+          </div>
+
+          <div class="text-sm mb-2">
+            📅 Mượn: {{ borrowRequestRejected.borrowDate || '-' }} <br />
+            ⏳ Hạn trả: {{ borrowRequestRejected.dueDate || '-' }}
+          </div>
+
+          <div class="text-sm text-color-secondary">
+            📝 {{ borrowRequestRejected.description || 'Không có ghi chú' }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex text-center justify-content-center" *ngIf="borrowRequestRejecteds.length==0">
+      <p>Không có bản ghi nào!!</p>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Đã trả">
+    <div class="row g-3">
+      <div class="col-12 col-md-6 col-lg-4" *ngFor="let borrowRequestReturned of borrowRequestReturneds">
+        <div class="border-round shadow-2 p-3 surface-card">
+          <div class="flex align-items-center mb-3">
+            <img [src]="baseImageUrl+borrowRequestReturned.deviceCategoryImageUrl" alt="device" width="60" height="60" class="border-circle mr-3" />
+            <div>
+              <div class="font-bold text-lg">{{ borrowRequestReturned.deviceName }}</div>
+              <div class="text-sm text-color-secondary">
+                Serial: {{ borrowRequestReturned.deviceSerialNumber }}
+              </div>
+            </div>
+          </div>
+
+          <div class="text-sm mb-2">
+            👤 <strong>{{ borrowRequestReturned.userActionName }}</strong> <br />
+            👨‍🏫 Lớp: {{ borrowRequestReturned.class }}
+          </div>
+
+          <div class="text-sm mb-2">
+            🏢 {{ borrowRequestReturned.buildingName }} - {{ borrowRequestReturned.floorName }} - {{ borrowRequestReturned.roomName }}
+          </div>
+
+          <div class="text-sm mb-2">
+            📅 Mượn: {{ borrowRequestReturned.borrowDate || '-' }} <br />
+            ⏳ Hạn trả: {{ borrowRequestReturned.dueDate || '-' }}
+          </div>
+
+          <div class="text-sm text-color-secondary">
+            📝 {{ borrowRequestReturned.description || 'Không có ghi chú' }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex text-center justify-content-center" *ngIf="borrowRequestReturneds.length==0">
+      <p>Không có bản ghi nào!!</p>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Đang yêu cầu mượn">
+    <div class="row g-3">
+      <div class="col-12 col-md-6 col-lg-4" *ngFor="let borrowRequestPending of borrowRequestPendings">
+        <div class="border-round shadow-2 p-3 surface-card">
+          <div class="flex align-items-center mb-3">
+            <img [src]="baseImageUrl+borrowRequestPending.deviceCategoryImageUrl" alt="device" width="60" height="60" class="border-circle mr-3" />
+            <div>
+              <div class="font-bold text-lg">{{ borrowRequestPending.deviceName }}</div>
+              <div class="text-sm text-color-secondary">
+                Serial: {{ borrowRequestPending.deviceSerialNumber }}
+              </div>
+            </div>
+          </div>
+
+          <div class="text-sm mb-2">
+            👤 <strong>{{ borrowRequestPending.userActionName }}</strong> <br />
+            👨‍🏫 Lớp: {{ borrowRequestPending.class }}
+          </div>
+
+          <div class="text-sm mb-2">
+            🏢 {{ borrowRequestPending.buildingName }} - {{ borrowRequestPending.floorName }} - {{ borrowRequestPending.roomName }}
+          </div>
+
+          <div class="text-sm mb-2">
+            📅 Mượn: {{ borrowRequestPending.borrowDate || '-' }} <br />
+            ⏳ Hạn trả: {{ borrowRequestPending.dueDate || '-' }}
+          </div>
+
+          <div class="text-sm text-color-secondary">
+            📝 {{ borrowRequestPending.description || 'Không có ghi chú' }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex text-center justify-content-center" *ngIf="borrowRequestPendings.length==0">
+      <p>Không có bản ghi nào!!</p>
+    </div>
+  </p-tabPanel>
+</p-tabView>
+
+<app-confirm-dialog [message]="dialogMessage"></app-confirm-dialog>
+
+<p-toast></p-toast>

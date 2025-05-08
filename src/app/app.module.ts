@@ -12,6 +12,8 @@ import { SiderbarComponent } from './components/shared/siderbar/siderbar.compone
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MessageService } from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpInterceptor } from './core/interceptors/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { MessageService } from 'primeng/api';
     SiderbarComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -32,11 +35,11 @@ import { MessageService } from 'primeng/api';
   [
     MessageService,
     DatePipe,
-    // {
-    //   provide: HTTP_InterCEPTORS,
-    //   useClass: HttpInterceptor,
-    //   multi: true
-    // }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptor,
+      multi: true
+    }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA], 
   bootstrap: [AppComponent]

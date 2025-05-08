@@ -15,7 +15,6 @@ import { RoleService } from 'src/app/core/services/role.service';
   })
 export class ShowRoleComponent implements OnInit {
 	//var 
-	breadcrumbs!: any[];
 	user: any;
 	roles:any[]=[];
 	selectedRoles:any[]=[];
@@ -36,7 +35,6 @@ export class ShowRoleComponent implements OnInit {
 	};
 	queryParameters: any = {
 		...this.config.paging,
-		organizationId: null,
 		name: null,
 		description: null,
 		sortBy: null,
@@ -56,16 +54,9 @@ export class ShowRoleComponent implements OnInit {
 
 
 	ngOnInit(): void {
-		this.breadcrumbs = [
-			{ label: 'Danh sách vai trò', routeLink: '/decentralization/role' },
-			{ label: 'Danh sách' },
-		];
-
 		this.route.queryParams.subscribe((params) => {
 			const request = {
 				...params,
-				organizationId: params['organizationId']
-					? params['organizationId'] : this.user.organization.id,
 				pageIndex: params['pageIndex']
 					? params['pageIndex']
 					: this.config.paging.pageIndex,
@@ -75,7 +66,6 @@ export class ShowRoleComponent implements OnInit {
 			};
 			this.queryParameters = {
 				...params,
-				organizationId: this.queryParameters.organization?.data || null,
 				name: this.queryParameters.name ? this.queryParameters.name.trim() : null,
 				description: this.queryParameters.description ? this.queryParameters.description : null,
 				sortBy: this.queryParameters.sortBy || null,
@@ -107,7 +97,6 @@ export class ShowRoleComponent implements OnInit {
 		this.route.queryParams.subscribe(params => {
 			const request = {
 				...params,
-				organizationId: this.queryParameters.organization?.data || null,
 				name: this.queryParameters.name ? this.queryParameters.name.trim() : null,
 				description: this.queryParameters.description ? this.queryParameters.description : null,
 				sortBy: this.queryParameters.sortBy || null,
@@ -144,7 +133,6 @@ export class ShowRoleComponent implements OnInit {
 		this.route.queryParams.subscribe(params => {
 			const request = {
 				...params,
-				organizationId: null,
 				name: null,
 				description: null,
 				sortBy: null,

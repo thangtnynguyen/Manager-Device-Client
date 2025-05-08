@@ -25,8 +25,8 @@ export class RoleService {
         return this.http.get('role/user-have-role', request);
     }
 
-    getRoleByEmployee(request: any ): Observable<any> {
-        return this.http.get('role/get-by-employee', request);
+    getRoleByUser(request: any ): Observable<any> {
+        return this.http.get('role/get-by-user', request);
     }
 
     create(request: any): Observable<any> {

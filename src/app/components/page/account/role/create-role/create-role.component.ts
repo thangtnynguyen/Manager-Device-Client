@@ -138,7 +138,7 @@ export class CreateRoleComponent implements OnInit {
 							summary: 'Thành công',
 							detail: res.message,
 						});
-						this.router.navigate(['/decentralization/role'])
+						this.router.navigate(['/page/account/role'])
 					}
 					else {
 						this.messageService.add({

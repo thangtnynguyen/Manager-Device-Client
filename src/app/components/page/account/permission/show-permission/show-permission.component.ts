@@ -35,7 +35,6 @@ export class ShowPermissionComponent implements OnInit {
 	};
 	queryParameters: any = {
 		...this.config.paging,
-		organizationId: null,
 		name: null,
 		description: null,
 		displayName: null,
@@ -59,8 +58,6 @@ export class ShowPermissionComponent implements OnInit {
 		this.route.queryParams.subscribe((params) => {
 			const request = {
 				...params,
-				organizationId: params['organizationId']
-					? params['organizationId'] : this.user.organization.id,
 				pageIndex: params['pageIndex']
 					? params['pageIndex']
 					: this.config.paging.pageIndex,
@@ -70,7 +67,6 @@ export class ShowPermissionComponent implements OnInit {
 			};
 			this.queryParameters = {
 				...params,
-				organizationId: this.queryParameters.organization?.data || null,
 				name: this.queryParameters.name ? this.queryParameters.name.trim() : null,
 				description: this.queryParameters.description ? this.queryParameters.description : null,
 				displayName: this.queryParameters.displayName || null,
@@ -103,7 +99,6 @@ export class ShowPermissionComponent implements OnInit {
 		this.route.queryParams.subscribe(params => {
 			const request = {
 				...params,
-				organizationId: this.queryParameters.organization?.data || null,
 				name: this.queryParameters.name ? this.queryParameters.name.trim() : null,
 				description: this.queryParameters.description ? this.queryParameters.description : null,
 				displayName: this.queryParameters.displayName || null,
@@ -141,7 +136,6 @@ export class ShowPermissionComponent implements OnInit {
 		this.route.queryParams.subscribe(params => {
 			const request = {
 				...params,
-				organizationId: null,
 				name: null,
 				description: null,
 				displayName: null,

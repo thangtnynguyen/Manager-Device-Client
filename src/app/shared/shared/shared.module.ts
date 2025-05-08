@@ -4,6 +4,7 @@ import { ValidationMessageModule } from './validation-message/validation-message
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ToastModule } from 'primeng/toast';
 
 
 
@@ -12,11 +13,13 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
   imports: [
     CommonModule,
     DialogModule,
-    ButtonModule
+    ButtonModule,
+    ToastModule
   ],
   exports: [
     ValidationMessageModule,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ToastModule
   ],
 })
 export class SharedModule { }

@@ -1,57 +1,78 @@
 <div class="row no-gutters">
-    <div class="col-md-4 p-3 d-flex align-items-center justify-content-center">
+    <div class="col-md-4 p-3 text-center">
         <img src="assets/images/school/logo.png" width="500px" alt="logo">
+        <div class="mt-5 text-center">
+            <p>Đã có tài khoản ? <a routerLink="/auth/login" class="fw-medium text-primary"> Đăng nhập </a>
+            </p>
+            <p>©
+                <script>document.write(new Date().getFullYear())</script> UTEHY. Crafted
+                with <i class="mdi mdi-heart text-danger"></i> by UTEHY
+            </p>
+        </div>
     </div>
 
     <div class="col-md-8 p-3">
         <div class="card shadow-sm mt-5">
             <div class="card-body">
                 <label for="searchDevice" >Yêu Cầu Cấp Tài Khoản</label>
-                <form (ngSubmit)="onSubmit()">
+                <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
-                        <label for="studentId">Mã Sinh Viên</label>
-                        <input type="text" class="form-control" id="studentId" placeholder="Nhập mã sinh viên"
-                            [(ngModel)]="request.studentId" name="studentId" required />
+                        <label for="name">Tên Sinh Viên/Giảng viên<nav></nav></label>
+                        <input type="text" class="form-control" id="name" placeholder="Nhập tên sinh viên/giảng viên"
+                               formControlName="name" />
+                        <app-validation-message [form]="requestForm" [messages]="validationMessages" field="name"></app-validation-message>
+                    </div>
+                    <div class="form-group">
+                        <label for="code">Mã Sinh Viên/Giảng viên</label>
+                        <input type="text" class="form-control" id="code" placeholder="Nhập mã sinh viên/giảng viên"
+                               formControlName="code" />
+                        <app-validation-message [form]="requestForm" [messages]="validationMessages" field="code"></app-validation-message>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" placeholder="Nhập email"
-                            [(ngModel)]="request.email" name="email" required />
+                               formControlName="email" />
+                        <app-validation-message [form]="requestForm" [messages]="validationMessages" field="email"></app-validation-message>
                     </div>
+                
                     <div class="form-group">
-                        <label for="phone">Số Điện Thoại</label>
-                        <input type="tel" class="form-control" id="phone" placeholder="Nhập số điện thoại"
-                            [(ngModel)]="request.phone" name="phone" required />
+                        <label for="phoneNumber">Số Điện Thoại</label>
+                        <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại"
+                               formControlName="phoneNumber" />
+                        <app-validation-message [form]="requestForm" [messages]="validationMessages" field="phoneNumber"></app-validation-message>
                     </div>
+                
                     <div class="form-group">
                         <label for="classCode">Mã Lớp</label>
                         <input type="text" class="form-control" id="classCode" placeholder="Nhập mã lớp"
-                            [(ngModel)]="request.classCode" name="classCode" required />
+                               formControlName="classCode" />
+                        <app-validation-message [form]="requestForm" [messages]="validationMessages" field="classCode"></app-validation-message>
                     </div>
+                
                     <div class="form-group">
                         <label for="position">Chức Vụ Hiện Tại</label>
                         <input type="text" class="form-control" id="position" placeholder="Nhập chức vụ hiện tại"
-                            [(ngModel)]="request.position" name="position" required />
+                               formControlName="position" />
+                        <app-validation-message [form]="requestForm" [messages]="validationMessages" field="position"></app-validation-message>
                     </div>
+                
                     <div class="form-group">
                         <label for="reason">Lý Do</label>
-                        <textarea class="form-control" id="reason" rows="4"
-                            placeholder="Nhập lý do yêu cầu cấp tài khoản" [(ngModel)]="request.reason" name="reason"
-                            required></textarea>
+                        <textarea class="form-control" id="reason" rows="4" placeholder="Nhập lý do yêu cầu cấp tài khoản"
+                                  formControlName="reason"></textarea>
+                        <app-validation-message [form]="requestForm" [messages]="validationMessages" field="reason"></app-validation-message>
                     </div>
+                
                     <div class="form-group text-end">
-                        <button type="submit" class="btn btn-primary">Gửi Yêu Cầu</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="requestForm.invalid">Gửi Yêu Cầu</button>
                     </div>
                 </form>
+                
             </div>
         </div>
     </div>
+    <!-- <button (click)="onSubmit()">jaha</button> -->
 </div>
-<div class="mt-5 text-center">
-    <p>Đã có tài khoản ? <a routerLink="/auth/login" class="fw-medium text-primary"> Đăng nhập </a>
-    </p>
-    <p>©
-        <script>document.write(new Date().getFullYear())</script> UTEHY. Crafted
-        with <i class="mdi mdi-heart text-danger"></i> by UTEHY
-    </p>
-</div>
+
+<p-toast></p-toast>
+

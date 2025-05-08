@@ -17,13 +17,13 @@ import { UserService } from 'src/app/core/services/user.service';
 export class AssignPermissionComponent implements OnInit {
 
 	user: any;
-	employees: any[] = [];
-	selectedEmployees: any[] = [];
+	users: any[] = [];
+	selectedUsers: any[] = [];
 	roles: any[] = [];
 	selectedRoles: any[] = [];
 	selectedRoleIds: any[] = [];
-	rolesOfEmployee: any[] = [];
-	selectedEmployeeId: any = 0;
+	rolesOfUser: any[] = [];
+	selectedUserId: any = 0;
 	//flag
 	showAssign: boolean = false;
 	//search
@@ -43,7 +43,6 @@ export class AssignPermissionComponent implements OnInit {
 	};
 	queryParameters: any = {
 		...this.config.paging,
-		organizationId: null,
 		keyWord: null,
 		sortBy: null,
 		orderBy: null,
@@ -75,11 +74,12 @@ export class AssignPermissionComponent implements OnInit {
 			};
 			this.queryParameters = {
 				...params,
-				organizationId: this.queryParameters.organization?.data || this.user.organization.id,
 				keyWord: this.queryParameters.keyWord ? this.queryParameters.keyWord.trim() : null,
 				sortBy: this.queryParameters.sortBy || null,
 				orderBy: this.queryParameters.orderBy || null
 			};
+			this.getUsers(request);
+
 		});
 		const requestRoles = {
 			pageIndex: 1,
@@ -90,6 +90,22 @@ export class AssignPermissionComponent implements OnInit {
 
 
 	//get data
+	getUsers(request: any) {
+		this.userService.paging(request).subscribe(res => {
+			if (res) {
+				this.users = res.data.items;
+				if (this.users.length === 0) {
+					this.paging.pageIndex = 1;
+					this.users=[];
+				}
+
+				const { items, ...paging } = res.data;
+				this.paging = paging;
+
+				this.selectedUsers = [];
+			}
+		})
+	}
 	getRoles(request: any) {
 		this.roleService.paging(request).subscribe(res => {
 			if (res.status == true) {
@@ -99,17 +115,17 @@ export class AssignPermissionComponent implements OnInit {
 				}
 
 				const { items, ...paging } = res.data;
-				this.paging = paging;
+				// this.paging = paging;
 
 				this.selectedRoles = [];
 			}
 		})
 	}
 
-	getRoleByEmployee(request: any) {
-		this.roleService.getRoleByEmployee(request).subscribe(res => {
+	getRoleByUser(request: any) {
+		this.roleService.getRoleByUser(request).subscribe(res => {
 			if (res.status == true) {
-				this.rolesOfEmployee = res.data;
+				this.rolesOfUser = res.data;
 				this.selectedRoles = res.data;
 				this.selectedRoleIds = res.data.map((item:any) => item.id);
 			}
@@ -120,7 +136,6 @@ export class AssignPermissionComponent implements OnInit {
 		this.route.queryParams.subscribe(params => {
 			const request = {
 				...params,
-				organizationId: this.queryParameters.organization?.data || this.user.organization.id,
 				keyWord: this.queryParameters.keyWord ? this.queryParameters.keyWord.trim() : null,
 				sortBy: this.queryParameters.sortBy || null,
 				orderBy: this.queryParameters.orderBy || null
@@ -157,7 +172,6 @@ export class AssignPermissionComponent implements OnInit {
 		this.route.queryParams.subscribe(params => {
 			const request = {
 				...params,
-				organizationId: this.user.organization.id,
 				keyWord: null,
 				sortBy: null,
 				orderBy: null
@@ -172,22 +186,22 @@ export class AssignPermissionComponent implements OnInit {
 	}
 
 	//send data
-	showAssignRoles(employeeId: any, accountStatus: any) {
+	showAssignRoles(userId: any, accountStatus: any) {
 		this.showAssign = true;
 		const request = {
-			employeeId: employeeId,
+			userId: userId,
 		}
-		this.getRoleByEmployee(request);
-		this.selectedEmployeeId = employeeId;
+		this.getRoleByUser(request);
+		this.selectedUserId = userId;
 	}
 	handleAssignRole() {
 		const request = {
-			employeeId: this.selectedEmployeeId,
+			userId: this.selectedUserId,
 			roleNames: this.roles
 				.filter(item => this.selectedRoleIds.includes(item.id))
 				.map(item => item.normalizedName),
 		}
-		this.userService.assignRolesToEmployee(request).subscribe(res => {
+		this.userService.assignRolesToUser(request).subscribe(res => {
 			if (res.status == true) {
 				this.messageService.add({
 					severity: 'success',
@@ -213,13 +227,13 @@ export class AssignPermissionComponent implements OnInit {
 
 	//data front end
 	columns = [
-		{ field: 'name', header: 'Tên nhân viên', selected: true },
-		{ field: 'position', header: 'Vị trí công việc', selected: true },
-		{ field: 'staffTitle', header: 'Chức vụ', selected: true },
-		{ field: 'phoneNumber', header: 'Số điện thoại', selected: true },
-		{ field: 'personalEmail', header: 'Email', selected: true },
-		{ field: 'accountStatus', header: 'Trạng thái tài khoản', selected: true },
-		{ field: 'action', header: 'Hành động', selected: true }
+		{ field: 'name', header: 'Tên Tài Khoản', selected: true },
+		{ field: 'phoneNumber', header: 'Số Điện Thoại', selected: true },
+		{ field: 'email', header: 'Email', selected: true },
+		{ field: 'code', header: 'Mã Sinh Viên/Giảng Viên', selected: true },
+		{ field: 'position', header: 'Chức Vụ', selected: true },
+		{ field: 'accountStatus', header: 'Trạng Thái Tài Khoản', selected: true },
+		{ field: 'action', header: 'Hành Động', selected: true }
 	];
 
 

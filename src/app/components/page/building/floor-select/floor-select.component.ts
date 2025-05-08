@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { RoomService } from 'src/app/core/services/room.service';
 
 @Component({
   selector: 'app-floor-select',
@@ -11,16 +12,32 @@ export class FloorSelectComponent {
 
   floors: any[] = [];
 
+
+  constructor(private roomService: RoomService) {
+
+  }
+
+
   ngOnChanges() {
     if (this.building) {
-      this.floors = [
-        { id: 1, name: 'Tầng 1', image: 'https://watermark.lovepik.com/photo/20211120/large/lovepik-bright-classroom-corridor-of-shanghai-univer-picture_500497092.jpg' },
-        { id: 2, name: 'Tầng 2', image: 'https://watermark.lovepik.com/photo/20211120/large/lovepik-bright-classroom-corridor-of-shanghai-univer-picture_500497092.jpg' },
-        { id: 3, name: 'Tầng 3', image: 'https://watermark.lovepik.com/photo/20211120/large/lovepik-bright-classroom-corridor-of-shanghai-univer-picture_500497092.jpg' },
-        { id: 4, name: 'Tầng 4', image: 'https://watermark.lovepik.com/photo/20211120/large/lovepik-bright-classroom-corridor-of-shanghai-univer-picture_500497092.jpg' },
-        { id: 5, name: 'Tầng 5', image: 'https://watermark.lovepik.com/photo/20211120/large/lovepik-bright-classroom-corridor-of-shanghai-univer-picture_500497092.jpg' },
-      ];
+      const request = {
+        buildingId: this.building.id,
+        pageIndex: 1,
+        pageSize: 20
+      }
+      this.getFloors(request);
     }
+  }
+
+  getFloors(request: any) {
+    this.roomService.pagingFloors(request).subscribe((res: any) => {
+      this.floors = res.data.items.map((item: any) => {
+        return {
+          ...item,
+          image: 'https://watermark.lovepik.com/photo/20211120/large/lovepik-bright-classroom-corridor-of-shanghai-univer-picture_500497092.jpg'
+        }
+      })
+    })
   }
 
   onFloorSelect(floor: any) {

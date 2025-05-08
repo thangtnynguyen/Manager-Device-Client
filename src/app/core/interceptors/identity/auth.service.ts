@@ -38,7 +38,11 @@ export class AuthService {
             .post(`auth/login-by-email`, request)
             .pipe(catchError(this.handleError));
     }
-
+    loginByUsername(request: any): Observable<any> {
+        return this.httpLoadingService
+            .post(`auth/login-by-username`, request)
+            .pipe(catchError(this.handleError));
+    }
     private isInitAuthSubject: BehaviorSubject<boolean> =
         new BehaviorSubject<boolean>(false);
     isInitAuth$: Observable<boolean> = this.isInitAuthSubject.asObservable();
@@ -142,6 +146,10 @@ export class AuthService {
 
     setPassword(request: any): Observable<any> {
         return this.httpLoadingService.post('auth/set-password', request);
+    }
+
+    changePassword(request: any): Observable<any> {
+        return this.httpLoadingService.post('auth/change-password', request);
     }
 
     getUsers(request: any): Observable<any> {

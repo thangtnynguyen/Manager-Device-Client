@@ -8,7 +8,9 @@ import { environment } from "src/environments/environment";
   providedIn: 'root',
 })
 export class HttpLoadingService {
-  private baseUrl: string = environment.host.apiAdminBaseUrl;
+  // private baseUrl: string = environment.apiUrl;
+  private baseUrl: string ='';
+
 
   constructor(
     private http: HttpClient,

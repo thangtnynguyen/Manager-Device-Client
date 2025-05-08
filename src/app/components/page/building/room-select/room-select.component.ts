@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { RoomService } from 'src/app/core/services/room.service';
 
 @Component({
   selector: 'app-room-select',
@@ -11,21 +12,34 @@ export class RoomSelectComponent {
 
   rooms: any[] = [];
 
+
+  constructor(private roomService: RoomService) {
+
+  }
+
+
   ngOnChanges() {
     if (this.floor) {
-      this.rooms = [
-        { id: 1, name: 'Phòng 101', image: 'https://freenice.net/wp-content/uploads/2021/11/Hinh-anh-lop-hoc-cong-nghe-thong-tin.jpg' },
-        { id: 2, name: 'Phòng 102', image: 'https://freenice.net/wp-content/uploads/2021/11/Hinh-anh-lop-hoc-cong-nghe-thong-tin.jpg' },
-        { id: 3, name: 'Phòng 103', image: 'https://freenice.net/wp-content/uploads/2021/11/Hinh-anh-lop-hoc-cong-nghe-thong-tin.jpg' },
-        { id: 4, name: 'Phòng 101', image: 'https://freenice.net/wp-content/uploads/2021/11/Hinh-anh-lop-hoc-cong-nghe-thong-tin.jpg' },
-        { id: 5, name: 'Phòng 102', image: 'https://freenice.net/wp-content/uploads/2021/11/Hinh-anh-lop-hoc-cong-nghe-thong-tin.jpg' },
-        { id: 6, name: 'Phòng 103', image: 'https://freenice.net/wp-content/uploads/2021/11/Hinh-anh-lop-hoc-cong-nghe-thong-tin.jpg' },
-        { id: 7, name: 'Phòng 101', image: 'https://freenice.net/wp-content/uploads/2021/11/Hinh-anh-lop-hoc-cong-nghe-thong-tin.jpg' },
-        { id: 8, name: 'Phòng 102', image: 'https://freenice.net/wp-content/uploads/2021/11/Hinh-anh-lop-hoc-cong-nghe-thong-tin.jpg' },
-        { id: 9, name: 'Phòng 103', image: 'https://freenice.net/wp-content/uploads/2021/11/Hinh-anh-lop-hoc-cong-nghe-thong-tin.jpg' }
-      ];
+      const request = {
+        floorId: this.floor.id,
+        pageIndex: 1,
+        pageSize: 50
+      }
+      this.getRooms(request);
     }
   }
+
+  getRooms(request: any) {
+    this.roomService.paging(request).subscribe((res: any) => {
+      this.rooms = res.data.items.map((item: any) => {
+        return {
+          ...item,
+          image: 'https://freenice.net/wp-content/uploads/2021/11/Hinh-anh-lop-hoc-cong-nghe-thong-tin.jpg'
+        }
+      })
+    })
+  }
+
 
   onRoomSelect(room: any) {
     this.roomSelected.emit(room);

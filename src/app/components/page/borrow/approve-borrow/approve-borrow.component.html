@@ -1,1 +1,127 @@
-<p>approve-borrow works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0">Duyệt yêu cầu mượn thiết bị</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li routerLink="/dashboard" class="breadcrumb-item d-flex align-items-center">
+                        <span>Trang chủ</span>
+                        <i class="breadcrumb-item-arrow fa-solid fa-angle-right"></i>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <span>Duyệt yêu cầu mượn thiết bị</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row card-custom">
+    <div class="d-flex">
+        <input class="ml-3" [(ngModel)]="queryParameters.keyWord" id="borrowRequestName" placeholder="Nhập từ khóa tìm kiếm"
+            pInputText />
+        <div class="d-flex justify-content-center">
+            <p-button class="ml-4" (click)="onSearch()" label="Lọc" />
+            <p-button class="ml-2" (click)="onRefreshSearch()" icon="pi pi-sync" />
+            <div class="p-col-2 ml-auto">
+                <p-button class="ml-2" routerLink="/page/borrowRequest/create" icon="pi pi-plus-circle" label="Thêm" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-table [value]="borrowRequests" [(selection)]="selectedBorrowRequests" [paginator]="false" [rows]="10" responsiveLayout="scroll"
+    styleClass="p-datatable-striped custom-scrollbar" [rowHover]="true" [ngStyle]="{
+    width: 'auto',
+    'overflow-x': 'auto',
+    'table-layout': 'auto'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="text-center"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+            <th *ngFor="let col of columns" [hidden]="!col.selected">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-borrowRequest>
+        <tr>
+            <td class="text-center"><p-tableCheckbox [value]="borrowRequest"></p-tableCheckbox></td>
+            <td *ngFor="let col of columns">
+                <span *ngIf="col.field.includes('deviceName')">
+                    {{ borrowRequest.deviceName}} [ Mã {{ borrowRequest.deviceSerialNumber}} ]-  {{ borrowRequest.roomOldPutName}} -  {{ borrowRequest.floorOldPutName}} -  {{ borrowRequest.buildingOldPutName}}
+                </span>
+                <span *ngIf="col.field.includes('class')">
+                    {{ borrowRequest.class }}
+                </span>
+                <span *ngIf="col.field.includes('roomName')">
+                   Phòng {{ borrowRequest.roomName }} - {{borrowRequest.floorName}} - {{borrowRequest.buildingName}}
+                </span>
+                <span *ngIf="col.field.includes('userActionName')">
+                    {{ borrowRequest.userActionName }}
+                </span>
+                <span *ngIf="col.field.includes('requestDate')">
+                    {{ borrowRequest.requestDate }}
+                </span>
+                <span *ngIf="col.field.includes('borrowDate')">
+                    {{ borrowRequest.borrowDate }}
+                </span>
+                <span *ngIf="col.field.includes('dueDate')">
+                    {{ borrowRequest.dueDate }}
+                </span>
+                <span *ngIf="col.field.includes('description')">
+                    {{ borrowRequest.description }}
+                </span>
+                <span *ngIf="col.field.includes('status')">
+                    {{ borrowRequest.statusLabel }}
+                </span>
+                <span *ngIf="col.field.includes('action')">
+                    <div class="" style="display: flex; align-items: center;">
+                        <div class="font-size-16 ml-2" style="padding: 3px; border-radius: 50%">
+                            <i class="pi pi-trash
+                            "></i>
+                        </div>
+                        <div class="font-size-16 ml-2" style="padding: 3px; border-radius: 50%">
+                            <i class="pi pi-eye
+                        "></i>
+                        </div>
+                        <div *ngIf="borrowRequest.status==0" (click)="handleUpdateStatus(borrowRequest,borrowRequestStatus.Approved)" class="font-size-16 ml-2" style="padding: 3px; border-radius: 50%">
+                            <i class="pi pi-thumbs-up
+                        "></i>
+                        </div>
+                        <div *ngIf="borrowRequest.status==0" (click)="handleUpdateStatus(borrowRequest,borrowRequestStatus.Rejected)" class="font-size-16 ml-2" style="padding: 3px; border-radius: 50%">
+                            <i class="pi pi-thumbs-down
+                        "></i>
+                        </div>
+                    </div>
+                </span>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<div class="flex align-items-center mt-3" style="justify-content: space-between">
+    <p>
+        <span style="font-weight: 500">{{
+            1 + (paging.pageIndex - 1) * paging.pageSize
+            }}</span>
+        -
+        <span style="font-weight: 500">{{
+            1 +
+            (paging.pageIndex - 1) * paging.pageSize +
+            (paging.pageSize - 1)
+            }}</span>
+        trong
+        <span style="font-weight: 500">{{
+            paging.totalRecords
+            }}</span>
+        bản ghi
+    </p>
+    <div *ngIf="borrowRequests!.length > 0">
+        <p-paginator class="custum-paging" (onPageChange)="onPageChange($event)"
+            [first]="(paging.pageIndex - 1) * paging.pageSize" [rows]="paging.pageSize"
+            [totalRecords]="paging.totalRecords" [rowsPerPageOptions]="config.pageSizeOptions" />
+    </div>
+</div>
+<app-confirm-dialog [message]="dialogMessage"></app-confirm-dialog>
+
+<p-toast></p-toast>

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateBorrowComponent } from './create-borrow/create-borrow.component';
 import { ListBorrowComponent } from './list-borrow/list-borrow.component';
 import { ApproveBorrowComponent } from './approve-borrow/approve-borrow.component';
+import { BorrowedHistoryComponent } from './borrowed-history/borrowed-history.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'approve',
     component: ApproveBorrowComponent
+  },
+  {
+    path:'borrowed-history',
+    component:BorrowedHistoryComponent
   }
 ];
 

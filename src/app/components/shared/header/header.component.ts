@@ -1,5 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { Page } from 'src/app/core/enums/page.enum';
+import { AuthService } from 'src/app/core/interceptors/identity/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +10,19 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
+  public userCurrent: any={};
+
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private authService: AuthService,
+
+  ) { 
+    this.authService.userCurrent.subscribe((user) => {
+      this.userCurrent = user;
+  });
+  }
+
+
   
   ngOnInit() {
   }
@@ -27,7 +39,7 @@ export class HeaderComponent {
     const targetElement = event.target as HTMLElement;
 
     if (targetElement.classList.contains('logout-button')) {
-      this.handleOnLogout();
+      this.handleLogOut();
       return;
     }
 
@@ -38,9 +50,20 @@ export class HeaderComponent {
     }
   }
   
-  public handleOnLogout(){
-    // this.authService.logout();
+  // public handleOnLogout(){
+  //   // this.authService.logout();
 
-    this.router.navigate(['/auth/login']);
-  }
+  //   this.router.navigate(['/auth/login']);
+  // }
+
+  handleLogOut() {
+    this.authService.logout().subscribe((res) => {
+        if (res.status == true) {
+            this.authService.setAuthTokenLocalStorage(null);
+            localStorage.removeItem('cachedProducts');
+            this.router.navigate([Page.Login]);
+            window.location.reload(); //load lại trang tny
+        }
+    });
+}
 }

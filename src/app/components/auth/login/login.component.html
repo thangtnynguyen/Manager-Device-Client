@@ -23,7 +23,7 @@
                                             <div class="mb-3 auth-form-group-custom mb-4">
                                                 <i class="ri-user-2-line auti-custom-input-icon"></i>
                                                 <label for="username">Mã đăng nhập</label>
-                                                <input type="text" class="form-control" id="username"
+                                                <input formControlName="username" type="text" class="form-control" id="username"
                                                     placeholder="Enter username">
                                                 <app-validation-message [form]="loginForm"
                                                     [messages]="validationMessages"
@@ -34,7 +34,7 @@
                                             <div class="mb-3 auth-form-group-custom mb-4">
                                                 <i class="ri-lock-2-line auti-custom-input-icon"></i>
                                                 <label for="userpassword">Mật khẩu</label>
-                                                <input type="password" class="form-control" id="userpassword"
+                                                <input formControlName="password" type="password" class="form-control" id="userpassword"
                                                     placeholder="Enter password">
                                             </div>
 
@@ -80,3 +80,4 @@
         </div>
     </div>
 </div>
+<p-toast/>

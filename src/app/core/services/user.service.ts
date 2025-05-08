@@ -12,14 +12,9 @@ import { HttpLoadingService } from 'src/app/shared/services/https/http-loading.s
 export class UserService {
     constructor(private http: HttpLoadingService) {}
 
-    // login(email: string, password: string): Observable<User> {
-    //     const data = { email, password };
-    //     return this.http.post(API_CONSTANTS.LOGIN, data);
-    // }
-
-    // register(user: User): Observable<User> {
-    //     return this.http.post(API_CONSTANTS.REGISTER, user);
-    // }
+    paging(resquest: any):Observable<any>{
+        return this.http.get('user/paging', resquest)
+    }
 
     getFilters(
         PageSize: number,

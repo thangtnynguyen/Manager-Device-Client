@@ -1,1 +1,45 @@
-<p>dashboard works!</p>
+<div class="row">
+    <div class="row align-items-center fade-in-up">
+        <!-- BÊN TRÁI: HÌNH ẢNH -->
+        <div class="col-md-6 text-center mb-4 mb-md-0">
+            <img src="https://xdcs.cdnchinhphu.vn/446259493575335936/2023/7/24/sphy6-1690161913081529420155.jpg"
+                alt="Trường Đại học Sư phạm Kỹ thuật Hưng Yên" class="img-fluid rounded shadow-lg welcome-img" />
+        </div>
+
+        <!-- BÊN PHẢI: NỘI DUNG -->
+        <div class="col-md-6 text-center text-md-start">
+            <h1 class="display-5 fw-bold text-primary">Chào mừng đến với</h1>
+            <h2 class="fw-semibold text-dark mb-3">Trường Đại học Sư phạm Kỹ thuật Hưng Yên</h2>
+            <p class="lead text-muted">
+                Nơi khởi đầu của tri thức, sáng tạo và tương lai nghề nghiệp bền vững.
+                Chúng tôi đào tạo các kỹ sư, giáo viên và nhà đổi mới cho đất nước.
+            </p>
+            <p-button label="Tìm hiểu thêm" icon="pi pi-info-circle" class="p-button-rounded p-button-primary mt-3"
+                routerLink="/about" />
+            <div class="mt-5">
+                <p>
+                    Tiền thân là Trường Trung học công nghiệp Hưng Yên được thành lập ngày 21/12/1966 với 2 ngành đào
+                    tạo chính là cơ khí và cơ khí động lực, trải qua 50 năm xây dựng và phát triển, Trường Đại học Sư
+                    phạm Kỹ thuật Hưng Yên đã trở thành trường đại học đa ngành, đa lĩnh vực, là nơi cung cấp cho xã hội
+                    đội ngũ kỹ sư, kỹ thuật viên, giáo viên kỹ thuật, cán bộ nghiên cứu có trình độ cao, có năng lực
+                    nghề nghiệp thành thục, góp phần thúc đẩy phát triển kinh tế - xã hội của vùng Đồng bằng sông Hồng
+                    nói riêng, đất nước nói chung.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row mt-4">
+    <div class="device-scroll-container">
+        <div class="device-card" *ngFor="let summary of summaries">
+            <img [src]="baseImageUrl+summary.imageUrl || 'https://via.placeholder.com/100'" alt="image" />
+            <h5>{{ summary.name }}</h5>
+            <p>{{ summary.description || 'No description' }}</p>
+            <span class="quantity">Số lượng: {{ summary.quantity }}</span>
+        </div>
+    </div>
+
+</div>
+
+<!-- src="https://media.kenhtuyensinh.vn/images/cms/2018/04/truong-dai-hoc-su-pham-ky-thuat-hung-yen-tuyen-sinh-nam-2018-1.jpg" -->

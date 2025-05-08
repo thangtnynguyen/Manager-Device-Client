@@ -10,22 +10,22 @@ export class RoomService {
     constructor(private httpLoading: HttpLoadingService) { }
 
     create(request: any): Observable<any> {
-        return this.httpLoading.post('leave-application/create', request);
+        return this.httpLoading.post('room/create', request);
     }
 
     paging(request: any = null): Observable<any> {
-        return this.httpLoading.get('leave-application/paging', request);
+        return this.httpLoading.get('room/paging', request);
     }
 
     pagingFloors(request: any = null): Observable<any> {
-        return this.httpLoading.get('leave-application/paging', request);
+        return this.httpLoading.get('floor/paging', request);
     }
 
     pagingBuildings(request: any = null): Observable<any> {
-        return this.httpLoading.get('leave-application/paging', request);
+        return this.httpLoading.get('building/paging', request);
     }
 
     getById(request: any): Observable<any> {
-        return this.httpLoading.get('leave-application/get-by-id', request);
+        return this.httpLoading.get('room/get-by-id', request);
     }
 }
